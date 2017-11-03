@@ -1,0 +1,25 @@
+{
+  "name": "spotifind",
+  "version": "1.0.0",
+  "description": "Create playlists that combine all of your friend's music preferences Edit",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinkennedy10/spotifind.git"
+  },
+  "author": "Justin Kennedy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justinkennedy10/spotifind/issues"
+  },
+  "homepage": "https://github.com/justinkennedy10/spotifind#readme",
+  "devDependencies": {
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
