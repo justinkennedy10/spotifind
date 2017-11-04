@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const bodyParser = require('body-parser');
 const passport = require('passport');
+
+app.use(bodyParser.json());
 
 function authenticate(req, res, next) {
   if (!req.isAuthenticated()) {

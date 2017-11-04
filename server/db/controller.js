@@ -14,7 +14,9 @@ module.exports = {
   getUserPlaylists,
   getPlaylistById,
   getUsersByPlaylistId,
-  getAuthorizedUserPlaylists
+  getAuthorizedUserPlaylists,
+  addInviteCode,
+  getPlaylistForInviteCode,
 };
 
 function saveUser(user) {
@@ -87,4 +89,20 @@ function getAuthorizedUserPlaylists(uid) {
       else resolve(res);
     });
   });
+}
+
+function addInviteCode(pid, inviteCode) {
+  return new Promise(function(resolve, reject) {
+    db.query('INSERT INTO InviteCodes SET ?', {
+      pid,
+      invite_code: inviteCode
+    }, function (err, res) {
+      if(err) reject(err);
+      else resolve(res);
+    })
+  })
+}
+
+function getPlaylistForInviteCode(uniqueCode) {
+
 }

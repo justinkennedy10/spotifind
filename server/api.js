@@ -1,9 +1,9 @@
 const db = require('./db/controller');
+const { inviteToPlaylist } = require('./inviter');
 
 module.exports = function(app, authenticate) {
 
   app.get('/api/me', authenticate, function(req, res) {
-    console.log(req);
     res.json({id: req.user.id});
   })
 
@@ -20,6 +20,20 @@ module.exports = function(app, authenticate) {
       res.json(playlists);
     }).catch(function (err) {
       res.json(err);
+    });
+  });
+
+  app.post('/api/invite', authenticate, function(req, res) {
+    // TODO: add invitees to playlist table
+    console.log(req.body);
+    playlistId = req.body.playlistId;
+    inviteeList = req.body.inviteeList;
+    console.log(req.body.inviteeList);
+
+    inviteToPlaylist(playlistId, inviteeList).then(function() {
+      res.send("Success");
+    }).catch(function(err) {
+      res.send(err);
     });
   });
 
