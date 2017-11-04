@@ -6,11 +6,15 @@ class PlaylistItem extends Component {
     var playlist = this.props.playlist;
     var linkUrl = '/playlist/' + playlist.id;
     return (
-      <Link to={linkUrl}>
-          <div className="row playlist">
-            <div className="name col-sm-4 col-xs-6">{playlist.name}</div>
-            <div className="members col-sm-4 col-xs-6">{playlist.members}</div>
-            <div className="date-created col-sm-4 hidden-xs">{playlist.dateCreated}</div>
+      <Link className="list-group-item row" to={linkUrl}>
+        <div className="col-md-4">
+          {playlist.name}
+        </div>
+        <div className="col-md-4">
+          {playlist.name}
+        </div>
+        <div className="col-md-4">
+          {playlist.name}
         </div>
       </Link>
     );

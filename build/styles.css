@@ -29,7 +29,6 @@ body {
 
 .playlist-list .playlist {
     color: white;
-    padding: 12px 12px 12px 12px;
 }
 
 .playlist-list .playlist .members,
@@ -55,6 +54,31 @@ body {
 .playlist-header {
   margin-top: 2.6em;
   color: rgb(152, 147, 147);
+}
+
+.list-group {
+  margin-top: 24px;
+}
+
+.list-group-item {
+  background-color: #515151;
+  font-size: 20px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 0 !important;
+}
+
+a.list-group-item:nth-of-type(2n):hover,
+a.list-group-item:hover {
+  background-color: #1db954;
+}
+
+a.list-group-item:nth-of-type(2n) {
+  background-color: #696868
+}
+
+.list-group-item div {
+  color: rgb(205, 205, 205);
 }
 
 .song-list {

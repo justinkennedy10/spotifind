@@ -22,7 +22,7 @@ class PlaylistList extends Component {
 
   render() {
       return (
-        <div className="playlist-list">
+        <div className="list-group">
         {this.state.playlists.map((playlist) => (
             <PlaylistItem key={playlist.id} playlist={playlist}/>
           ))}
