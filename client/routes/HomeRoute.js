@@ -7,7 +7,7 @@ class PlaylistRoute extends Component {
     return (
       <div>
         <PlaylistList />
-        <div class="row">
+        <div className="row">
           <NewPlaylistButton/>
         </div>
       </div>

@@ -46,3 +46,22 @@ body {
     border-radius: 24px;
     display: inline-block;
 }
+
+.playlist-header {
+  margin-top: 2.6em;
+  color: rgb(152, 147, 147);
+}
+
+.song-list {
+  background-color: rgb(87, 87, 87);
+  padding: 2px 2px 2px 2px;
+}
+
+.song-list hr {
+  padding: 0px 0px 0px 0px;
+}
+
+.song {
+  color: rgb(205, 205, 205);
+  padding: 4px 4px 4px 4px;
+}
