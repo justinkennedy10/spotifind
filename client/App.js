@@ -33,9 +33,9 @@ class App extends Component {
               <Brand/>
               <Switch>
                 <Route path="/home" render={() => <HomeRoute user_id={this.state.user_id} />}/>
-                <Route exact path="/playlist/new" render={() => <PlaylistRoute editing={ true } />} />
-                <Route path="/invite/:code" render={() => <InviteeRoute />}/>
-                <Route path="/playlist/:id" component={PlaylistRoute} />
+                <Route exact path="/create" render={(route) => <PlaylistRoute history={route.history} user_id={this.state.user_id} editing={ true } />} />
+                <Route path="/invite/:code" render={() => <InviteeRoute user_id={this.state.user_id} />}/>
+                <Route path="/playlist/:id" render={(route) => <PlaylistRoute match={route.match} user_id={this.state.user_id} editing={ false } />} />
               </Switch>
             </div>
           </Router>

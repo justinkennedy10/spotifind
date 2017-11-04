@@ -31,7 +31,7 @@ class PlaylistRoute extends Component {
     } else {
       return (
         <div>
-          <PlaylistDetails playlist={this.state.playlist} editing={this.props.editing} />
+          <PlaylistDetails history={this.props.history} uid={this.props.user_id} playlist={this.state.playlist} editing={this.props.editing} />
         </div>
       );
     }

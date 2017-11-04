@@ -114,8 +114,6 @@ class PlaylistDetails extends Component {
         <SongList songs={songs}/>
       )
     } else {
-      let pid = uuid();
-      let url = '/playlist/' + pid + '?new=true';
       leftPanel = (
         <form className="editor">
           <div className="form-group">
@@ -140,7 +138,7 @@ class PlaylistDetails extends Component {
             </label>
           </div>
           <div className="form-group">
-            <div className="btn new-playlist-button text-center" onClick={this.savePlaylist.bind(this, pid)}>
+            <div className="btn new-playlist-button text-center" onClick={this.savePlaylist.bind(this)}>
               CONTINUE
             </div>
           </div>
