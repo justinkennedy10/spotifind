@@ -24,73 +24,12 @@ class PlaylistDetails extends Component {
     }
   }
 
-  savePlaylist(pid) {
-    //save in db.then()
-    // window.location.pathname = '/playlist/' + pid
+  savePlaylist() {
+    const pid = uuid();
+    // save in db
   }
 
   render() {
-    let songs = [{
-      name: "Song 1",
-      artist: "Andrew Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 2",
-      artist: "Matthew Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 3",
-      artist: "Andrew Matthew",
-      duration: '01:35'
-    }, {
-      name: "Song 4",
-      artist: "Andrew Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 5",
-      artist: "Bass Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 6",
-      artist: "Andrew Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 7",
-      artist: "Andrew Andrew",
-      duration: '01:35'
-    }, {
-      name: "Song 8",
-      artist: "Andrew Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 9",
-      artist: "MatthewMatthew Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 10",
-      artist: "Andrew MatthewMatthew",
-      duration: '01:35'
-    }, {
-      name: "Song 11",
-      artist: "Andrew Matthew",
-      duration: '01:35'
-    }, {
-      name: "Song 12",
-      artist: "Andrew Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 13",
-      artist: "MatthewMatthewMatthew Bass",
-      duration: '01:35'
-    }, {
-      name: "Song 14",
-      artist: "Andrew Bass",
-      duration: '01:35'
-    }, {
-      name: "SongSongSongSongSongSong 15",
-      artist: "Andrew MatthewMatthewMatthewMatthew",
-      duration: '01:35'
-    }]
     const typeOptions = [{
       value: 'party',
       label: 'Party'
@@ -107,6 +46,7 @@ class PlaylistDetails extends Component {
       value: 'focus',
       label: 'Focus'
     }]
+
     let leftPanel;
 
     if(!this.props.editing) {
