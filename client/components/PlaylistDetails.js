@@ -6,6 +6,19 @@ import PlaylistHeader from './PlaylistHeader'
 
 class PlaylistDetails extends Component {
   render() {
+    const collaborators = [{
+      name: 'Matthew Gramigna',
+      contributions: {}
+    }, {
+      name: 'Justin Kennedy',
+      contributions: {}
+    }, {
+      name: 'Andrew Bass',
+      contributions: {}
+    }, {
+      name: 'Alex Karle',
+      contributions: {}
+    }, ]
     let leftPanel;
     if(!this.props.editing) {
       leftPanel = (
@@ -34,6 +47,11 @@ class PlaylistDetails extends Component {
               <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5" /> Focus
             </label>
           </div>
+          <div className="form-group">
+            <div className="btn new-playlist-button text-center">
+              GENERATE
+            </div>
+          </div>
         </form>
       )
     }
@@ -45,12 +63,7 @@ class PlaylistDetails extends Component {
             {leftPanel}
           </div>
           <div className="col-md-4 col-md-offset-2">
-            <div className="row">
-              <CollaboratorsList />
-            </div>
-            <div className="row">
-              <Details />
-            </div>
+            <CollaboratorsList editing={ this.props.editing } collaborators={ collaborators } />
           </div>
         </div>
       </div>

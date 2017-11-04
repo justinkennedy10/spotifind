@@ -1,37 +1,25 @@
 import React, { Component } from 'react';
+import Collaborator from './Collaborator';
 
 class CollaboratorsList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      collaborators: props.collaborators
+    }
+  }
+
   render() {
-    let collaborators = [{
-      name: 'Matthew Gramigna',
-      contributions: {}
-    }, {
-      name: 'Justin Kennedy',
-      contributions: {}
-    }, {
-      name: 'Andrew Bass',
-      contributions: {}
-    }, {
-      name: 'Alex Karle',
-      contributions: {}
-    }, ]
     return (
       <div>
         <h3 className="details-head">Collaborators</h3>
-        { collaborators.map(collab => (
-          <div key={collab.name} className="collaborator">
-            <div className="media">
-              <div className="media-left">
-                <a href="#">
-                  <img className="media-object img-circle" src="http://placehold.it/50x50" />
-                </a>
-              </div>
-              <div className="media-body media-middle">
-                <h4 className="media-heading">{ collab.name }</h4>
-              </div>
-            </div>
-          </div>
+        { this.state.collaborators.map(collab => (
+          <Collaborator key={collab.name} name={collab.name} image="http://placehold.it/50x50" />
         )) }
+        <div className="btn new-playlist-button text-center">
+          <span className="glyphicon glyphicon-plus"></span>&nbsp; ADD COLLABORATORS
+        </div>
       </div>
     )
   }
