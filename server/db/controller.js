@@ -19,7 +19,7 @@ module.exports = {
 
 function saveUser(user) {
   return new Promise(function(resolve, reject) {
-    db.query('INSERT INTO Users SET ?', user, function (err, res) {
+    db.query('INSERT IGNORE INTO Users SET ?', user, function (err, res) {
       if(err) reject(err);
       else resolve(res);
     });
