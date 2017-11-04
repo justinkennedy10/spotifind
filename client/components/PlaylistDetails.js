@@ -21,10 +21,10 @@ class PlaylistDetails extends Component {
           </div>
           <div className="col-md-4 col-md-offset-2">
             <div className="row">
-              <Details />
+              <CollaboratorsList />
             </div>
             <div className="row">
-              <CollaboratorsList />
+              <Details />
             </div>
           </div>
         </div>

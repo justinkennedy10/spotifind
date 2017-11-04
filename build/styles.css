@@ -100,3 +100,12 @@ body {
     width: 100%;
     height: 400px;
 }
+
+.collaborator {
+  color: rgb(200, 200, 200);
+  margin-top: 25px;
+}
+
+.details-head {
+  color: rgb(205, 205, 205);
+}
