@@ -1,4 +1,4 @@
 node_modules/
 npm-debug.log
 build/bundle.js
-server/config/config.json
+server/config.json
