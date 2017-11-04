@@ -1,0 +1,67 @@
+body {
+    background-color: #222323;
+}
+
+.media.brand {
+    margin-top: 24px;
+    font-size: 32px;
+    color: #1db954;
+}
+
+.brand img {
+    height: 50px;
+    width: 50px;
+}
+
+.playlist-list {
+    margin-top: 150px;
+}
+
+.playlist:hover,
+.playlist:nth-of-type(2):hover {
+    background-color: lightgrey;
+}
+
+.playlist-list .playlist {
+    color: white;
+    padding: 12px 12px 12px 12px;
+}
+
+.playlist-list .playlist .members,
+.playlist-list .playlist .name,
+.playlist-list .playlist .date-created {
+    display: inline-block;
+    font-size: 20px;
+}
+
+.playlist-list {
+    background-color: #515151;
+}
+
+.new-playlist-button {
+    margin-top: 24px;
+    margin-right: 12px;
+    background-color: #1db954;
+    color: white;
+    border-radius: 24px;
+    display: inline-block;
+}
+
+.playlist-header {
+  margin-top: 2.6em;
+  color: rgb(152, 147, 147);
+}
+
+.song-list {
+  background-color: rgb(87, 87, 87);
+  padding: 2px 2px 2px 2px;
+}
+
+.song-list hr {
+  padding: 0px 0px 0px 0px;
+}
+
+.song {
+  color: rgb(205, 205, 205);
+  padding: 4px 4px 4px 4px;
+}
