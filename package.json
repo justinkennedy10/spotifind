@@ -32,6 +32,7 @@
     "webpack": "^3.8.1"
   },
   "dependencies": {
+    "axios": "^0.17.0",
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.3",
