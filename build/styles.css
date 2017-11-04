@@ -13,6 +13,11 @@ body {
     width: 50px;
 }
 
+.brand a {
+  color: #1db954;
+  text-decoration: none
+}
+
 .playlist-list {
     margin-top: 150px;
 }
