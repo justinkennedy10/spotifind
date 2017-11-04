@@ -7,8 +7,11 @@ import AppBar from 'material-ui/AppBar';
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <h1>SpotiFind</h1>
+      <MuiThemeProvider>
+          <div>
+              <h1>Hello world</h1>
+              <SpotifyLoginButton></SpotifyLoginButton>
+          </div>
       </MuiThemeProvider>
     );
   }

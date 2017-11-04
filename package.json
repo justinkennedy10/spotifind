@@ -32,9 +32,14 @@
     "webpack": "^3.8.1"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "material-ui": "^0.19.4",
+    "passport": "^0.4.0",
+    "passport-spotify": "^0.3.1",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.0.0"
