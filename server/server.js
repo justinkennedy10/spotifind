@@ -9,7 +9,7 @@ const config = require('./config.json');
 const authenticate = require('./authentication').authenticate;
 
 app.use(session({
-  secret: 'secrettexthere',
+  secret: config.sessionSecret,
   saveUninitialized: true,
   resave: true,
 }));
