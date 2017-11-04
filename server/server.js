@@ -41,12 +41,12 @@ passport.deserializeUser(function(obj, done) {
 
 app.get('/', function(req, res) {
   if (req.isAuthenticated()) {
-    console.log("authenticated!");
     res.redirect('/home');
   } else {
-    res.sendFile(path.resolve(__dirname, '..', 'build/index.html'));
+    res.sendFile(path.resolve(__dirname, '..', 'build/landing.html'));
   }
 });
+
 app.use(express.static(path.resolve(__dirname, '..', 'build')))
 
 app.get('/auth/',
@@ -61,7 +61,7 @@ app.get('/auth/callback',
 });
 
 app.get('/home', authenticate, function(req, res) {
-  res.send("Home user!");
-})
+  res.sendFile(path.resolve(__dirname, '..', 'build/index.html'));
+});
 
 app.listen(3000);
