@@ -26,8 +26,6 @@ module.exports = function(app, authenticate) {
     });
   });
 
-  app.
-
   app.post('/api/invite', authenticate, function(req, res) {
     console.log(req.body);
     playlistId = req.body.playlistId;
@@ -81,7 +79,7 @@ module.exports = function(app, authenticate) {
       .then(spotify_playlist_id => res.send(spotify_playlist_id))
       .catch(error => res.json(error));
   });
-  
+
   /*function validateInviteCode(code, uid) {
     return new Promise(function(resolve, reject) {
       getInviteCode(uid).then(function(res) {
