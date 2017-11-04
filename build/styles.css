@@ -1,3 +1,32 @@
-.class {
-    hello
+body {
+    background-color: #222323;
+}
+
+.playlist-list {
+    margin-top: 200px;
+}
+
+.playlist:hover,
+.playlist:nth-of-type(2):hover {
+    background-color: lightgrey;
+}
+
+.playlist-list .playlist {
+    color: white;
+    padding: 12px 0px 12px 0px;
+}
+
+.playlist-list .playlist .members,
+.playlist-list .playlist .name,
+.playlist-list .playlist .date-created {
+    display: inline-block;
+    font-size: 20px;
+}
+
+.playlist-list .playlist:nth-of-type(2) {
+    background-color: white;
+}
+
+.playlist-list {
+    background-color: #515151;
 }
