@@ -5,7 +5,7 @@ class SpotifyLoginButton extends Component {
         console.log("Clicked");
     }
     render() {
-        return <button onClick={this.onClick}>Button</button>;
+        return <a href="/home">Login</a>;
     }
 }
 

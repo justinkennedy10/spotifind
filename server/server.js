@@ -40,11 +40,12 @@ passport.deserializeUser(function(obj, done) {
 });
 
 app.get('/', function(req, res) {
-  if (req.isAuthenticated) {
+  if (req.isAuthenticated()) {
+    console.log("authenticated!");
     res.redirect('/home');
-  } else new Promise(function(resolve, reject) {
-    res.render('index.html');
-  });
+  } else {
+    res.sendFile(path.resolve(__dirname, '..', 'build/index.html'));
+  }
 });
 app.use(express.static(path.resolve(__dirname, '..', 'build')))
 
