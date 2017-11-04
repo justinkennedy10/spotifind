@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PlaylistList from '../components/PlaylistList';
 
-class HomeRoute extends Component {
+class PlaylistRoute extends Component {
   render() {
-    return <div>Multiple PLaylists</div>
+    return <PlaylistList />;
   }
 }
 
-export default HomeRoute;
+export default PlaylistRoute;
