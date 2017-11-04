@@ -5,6 +5,7 @@ const passport = require('passport');
 const session = require('express-session');
 const SpotifyStrategy = require('passport-spotify').Strategy;
 
+const db = require('./db/controller');
 const config = require('./config.json');
 const authenticate = require('./authentication').authenticate;
 
@@ -21,7 +22,11 @@ passport.use(new SpotifyStrategy({
     callbackURL: "/auth/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
+    db.saveUser({
+      id: profile.id,
+      access_token: accessToken,
+      refresh_token: refreshToken
+    })
     return done(null, profile);
   }
 ));
