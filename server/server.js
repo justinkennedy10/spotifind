@@ -27,7 +27,7 @@ passport.use(new SpotifyStrategy({
       access_token: accessToken,
       refresh_token: refreshToken
     })
-    return done(null, profile);
+     return done(null, profile);
   }
 ));
 
@@ -60,7 +60,7 @@ app.get('/auth/callback',
     res.redirect('/home');
 });
 
-app.get('/home', authenticate, function(req, res) {
+app.get('/*', authenticate, function(req, res) {
   res.sendFile(path.resolve(__dirname, '..', 'build/index.html'));
 });
 
