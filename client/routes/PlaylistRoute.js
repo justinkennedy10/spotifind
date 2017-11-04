@@ -25,29 +25,13 @@ class PlaylistRoute extends Component {
     }
   }
 
-  onClick() {
-    axios.post('/api/invite', {
-      playlistId: "11111111",
-      inviteeList: [
-        1235,
-        1213434,
-        23234,
-      ]
-    }).then(function(res) {
-      console.log(res);
-    }).catch(function(err) {
-      console.log(err);
-    });
-  }
-
   render() {
     if (this.state.isLoading) {
       return <Loading/>;
     } else {
       return (
         <div>
-          <PlaylistDetails playlist={this.state.playlist} editing={this.props.editing} />
-          <button onClick={this.onClick}>Test Invites Code</button>
+          <PlaylistDetails history={this.props.history} uid={this.props.user_id} playlist={this.state.playlist} editing={this.props.editing} />
         </div>
       );
     }

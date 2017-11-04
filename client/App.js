@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import axios from 'axios';
 import HomeRoute from './routes/HomeRoute.js';
-import PlaylistRoute from './routes/PlaylistRoute.js';
-import Brand from './components/Brand.js';
+import PlaylistRoute from './routes/PlaylistRoute';
+import InviteeRoute from './routes/InviteeRoute';
+import Brand from './components/Brand';
 import Loading from './components/Loading';
 
 class App extends Component {
@@ -32,8 +33,9 @@ class App extends Component {
               <Brand/>
               <Switch>
                 <Route path="/home" render={() => <HomeRoute user_id={this.state.user_id} />}/>
-                <Route exact path="/playlist/new" render={() => <PlaylistRoute editing={ true } />} />
-                <Route path="/playlist/:id" component={PlaylistRoute} />
+                <Route exact path="/create" render={(route) => <PlaylistRoute history={route.history} user_id={this.state.user_id} editing={ true } />} />
+                <Route path="/invite/:code" render={() => <InviteeRoute user_id={this.state.user_id} />}/>
+                <Route path="/playlist/:id" render={(route) => <PlaylistRoute match={route.match} user_id={this.state.user_id} editing={ false } />} />
               </Switch>
             </div>
           </Router>

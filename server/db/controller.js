@@ -17,6 +17,7 @@ module.exports = {
   getAuthorizedUserPlaylists,
   addInviteCode,
   getPlaylistForInviteCode,
+  getInviteCode,
 };
 
 function saveUser(user) {
@@ -101,6 +102,15 @@ function addInviteCode(pid, inviteCode) {
       else resolve(res);
     })
   })
+}
+
+function getInviteCode(inviteCode) {
+  return new Promise(function(resolve, reject) {
+    db.query('SELECT spotify_id, pid, FROM InviteCodes WHERE invite_code = ?', inviteCode, function(err, res) {
+      if (err) reject(err);
+      else resolve(res);
+    });
+  });
 }
 
 function getPlaylistForInviteCode(uniqueCode) {
