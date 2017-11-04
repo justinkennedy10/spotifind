@@ -4,7 +4,8 @@
   "description": "Create playlists that combine all of your friend's music preferences Edit",
   "main": "src/index.js",
   "scripts": {
-    "webpack": "webpack"
+    "webpack-prod": "webpack",
+    "webpack-dev": "webpack --watch"
   },
   "repository": {
     "type": "git",
