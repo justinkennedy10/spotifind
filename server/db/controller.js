@@ -106,3 +106,7 @@ function addInviteCode(pid, inviteCode) {
 function getPlaylistForInviteCode(uniqueCode) {
 
 }
+
+function checkUserHostsPlaylist(uid, pid) {
+
+}
