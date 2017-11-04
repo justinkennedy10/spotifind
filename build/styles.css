@@ -84,3 +84,14 @@ body {
   font-size: 12px;
   text-overflow: ellipsis;
 }
+
+.loading img {
+    margin-top: 200px;
+    height: 75px;
+    width: 75px;
+}
+
+.loading {
+    width: 100%;
+    height: 400px;
+}
