@@ -23,10 +23,6 @@ body {
     font-size: 20px;
 }
 
-.playlist-list .playlist:nth-of-type(2) {
-    background-color: white;
-}
-
 .playlist-list {
     background-color: #515151;
 }
