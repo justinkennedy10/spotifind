@@ -2,10 +2,49 @@ import React, { Component } from 'react';
 import CollaboratorsList from './CollaboratorsList';
 import SongList from './SongList';
 import Details from './Details';
-import PlaylistHeader from './PlaylistHeader'
+import PlaylistHeader from './PlaylistHeader';
+import axios from 'axios';
 
 class PlaylistDetails extends Component {
+
+  selectOption(e) {
+    if(e.target.name === 'typeOptions') {
+      this.setState({
+        type: e.target.value
+      })
+    } else if(e.target.name === 'sizeOptions'){
+      this.setState({
+        size: e.target.value
+      })
+    } else {
+      this.setState({
+        name: e.target.value
+      })
+    }
+  }
+
+  generatePlaylist() {
+    console.log(this.state);
+    //make axios call
+  }
+
   render() {
+    const typeOptions = [{
+      value: 'party',
+      label: 'Party'
+    }, {
+      value: 'road trip',
+      label: 'Road Trip'
+    }, {
+      value: 'chill hang',
+      label: 'Chill Hang'
+    }, {
+      value: 'romantic',
+      label: 'Romantic'
+    }, {
+      value: 'focus',
+      label: 'Focus'
+    }]
     const collaborators = [{
       name: 'Matthew Gramigna',
       contributions: {}
@@ -28,27 +67,28 @@ class PlaylistDetails extends Component {
       leftPanel = (
         <form className="editor">
           <div className="form-group">
-            <input className="text" className="form-control" placeholder="Playlist Name" />
+            <input className="text" className="form-control" placeholder="Playlist Name" onChange={this.selectOption.bind(this)}/>
+          </div>
+          <div className="form-group text-center">
+            {typeOptions.map(opt => (
+              <label key={opt.value} className="radio-inline">
+                <input type="radio" name="typeOptions" value={opt.value} onChange={this.selectOption.bind(this)} /> {opt.label}
+              </label>
+            ))}
           </div>
           <div className="form-group text-center">
             <label className="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" /> Party
+              <input type="radio" name="sizeOptions" value="s" onChange={this.selectOption.bind(this)} /> Small ()
             </label>
             <label className="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" /> Road Trip
+              <input type="radio" name="sizeOptions" value="m" onChange={this.selectOption.bind(this)} /> Medium ()
             </label>
             <label className="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" /> Chill Hang
-            </label>
-            <label className="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4" /> Romantic
-            </label>
-            <label className="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5" /> Focus
+              <input type="radio" name="sizeOptions" value="l" onChange={this.selectOption.bind(this)} /> Large ()
             </label>
           </div>
           <div className="form-group">
-            <div className="btn new-playlist-button text-center">
+            <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
               GENERATE
             </div>
           </div>
