@@ -19,7 +19,7 @@ class CollaboratorsList extends Component {
       <div>
         <h3 className="details-head">Collaborators</h3>
         { collaborators.map(collab => (
-          <div className="collaborator">
+          <div key={collab.name} className="collaborator">
             <div className="media">
               <div className="media-left">
                 <a href="#">

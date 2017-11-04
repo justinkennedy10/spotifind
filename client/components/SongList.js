@@ -73,7 +73,7 @@ class SongList extends Component {
     return (
       <div className="song-list">
         {songs.map(song => (
-          <div>
+          <div key={song.name}>
             <div className="song">
               <span className="duration">{song.duration}</span>
               <span className="name">{song.name}</span>
