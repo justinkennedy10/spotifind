@@ -74,7 +74,11 @@ class SongList extends Component {
       <div className="song-list">
         {songs.map(song => (
           <div>
-            <h4 className="song list-group-item-heading">{ song.name }</h4>
+            <div className="song">
+              <span className="duration">{song.duration}</span>
+              <span className="name">{song.name}</span>
+              <span className="artist">{song.artist}</span>
+            </div>
             <hr/>
           </div>
         ))}
