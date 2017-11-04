@@ -14,7 +14,7 @@ class CollaboratorsList extends Component {
   addCollaborator() {
     this.state.collaborators.push({
       id: uuid(),
-      name: 'Enter a phone number',
+      name: null,
       newCollab: true
     })
     this.setState({

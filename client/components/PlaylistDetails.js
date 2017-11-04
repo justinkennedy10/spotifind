@@ -107,23 +107,6 @@ class PlaylistDetails extends Component {
       value: 'focus',
       label: 'Focus'
     }]
-    const collaborators = [{
-      id: 1,
-      name: 'Matthew Gramigna',
-      contributions: {}
-    }, {
-      id: 2,
-      name: 'Justin Kennedy',
-      contributions: {}
-    }, {
-      id: 3,
-      name: 'Andrew Bass',
-      contributions: {}
-    }, {
-      id: 4,
-      name: 'Alex Karle',
-      contributions: {}
-    }, ]
     let leftPanel;
 
     if(!this.props.editing) {
@@ -166,7 +149,7 @@ class PlaylistDetails extends Component {
     }
     let collabs;
     if(!this.props.editing) {
-      collabs = <CollaboratorsList pid={this.props.playlist.id} editing={ this.props.editing } collaborators={ collaborators } />
+      collabs = <CollaboratorsList pid={this.props.playlist.id} editing={ this.props.editing } collaborators={ [] } />
     } else {
       collabs = (<h3>Save settings to add collaborators</h3>)
     }
