@@ -55,7 +55,7 @@ function authorizeUserPlaylist(uid, spotify_pid) {
 
 function getUserPlaylists(uid) {
   return new Promise(function(resolve, reject) {
-    db.query('SELECT P.id, P.name, P.type, P.spotify_pid FROM Playlists P, UserPlaylists UP WHERE UP.uid = ?', uid, function (err, res) {
+    db.query('SELECT P.id, P.name, P.type, P.spotify_pid FROM Playlists P, UserPlaylists UP WHERE P.id = UP.pid AND UP.uid = ?', uid, function (err, res) {
       if(err) reject(err);
       else resolve(res);
     });

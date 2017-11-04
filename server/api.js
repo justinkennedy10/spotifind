@@ -8,4 +8,12 @@ module.exports = function(app, authenticate) {
       res.json(err);
     })
   });
+
+  app.get('/api/:id/playlists', authenticate, function (req, res) {
+    db.getUserPlaylists(req.params.id).then(function (playlists) {
+      res.json(playlists);
+    }).catch(function (err) {
+      res.json(err);
+    });
+  });
 }
