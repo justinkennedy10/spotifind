@@ -10,7 +10,11 @@ module.exports = {
   saveUser,
   savePlaylist,
   addUserToPlaylist,
-  authorizeUserPlaylist
+  authorizeUserPlaylist,
+  getUserPlaylists,
+  getPlaylistById,
+  getUsersByPlaylistId,
+  getAuthorizedUserPlaylists
 };
 
 function saveUser(user) {
@@ -43,6 +47,42 @@ function addUserToPlaylist(uid, pid, role) {
 function authorizeUserPlaylist(uid, spotify_pid) {
   return new Promise(function(resolve, reject) {
     db.query('INSERT INTO AuthorizedPlaylists SET ?', { uid, spotify_pid }, function (err, res) {
+      if(err) reject(err);
+      else resolve(res);
+    });
+  });
+}
+
+function getUserPlaylists(uid) {
+  return new Promise(function(resolve, reject) {
+    db.query('SELECT P.id, P.name, P.type, P.spotify_pid FROM Playlists P, UserPlaylists UP WHERE UP.uid = ?', uid, function (err, res) {
+      if(err) reject(err);
+      else resolve(res);
+    });
+  });
+}
+
+function getPlaylistById(pid) {
+  return new Promise(function(resolve, reject) {
+    db.query('SElECT * FROM Playlists WHERE id = ?', pid, function (err, res) {
+      if(err) reject(err);
+      else resolve(res);
+    });
+  });
+}
+
+function getUsersByPlaylistId(pid) {
+  return new Promise(function(resolve, reject) {
+    db.query('SELECT U.id, U.access_token, U.refresh_token FROM Users U, UserPlaylists UP WHERE UP.pid = ?', pid, function (err, res) {
+      if(err) reject(err);
+      else resolve(res);
+    });
+  });
+}
+
+function getAuthorizedUserPlaylists(uid) {
+  return new Promise(function(resolve, reject) {
+    db.query('SELECT AP.spotify_pid FROM Users U, AuthorizedPlaylists AP WHERE AP.uid = ?', uid, function (err, res) {
       if(err) reject(err);
       else resolve(res);
     });
