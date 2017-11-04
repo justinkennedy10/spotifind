@@ -44,10 +44,9 @@ function sendInvite(phoneNumber, inviteCode, inviter) {
       console.log("Sending invite to", phoneNumber, ": ", inviteCode);
       client.messages.create({
       body: 'Andrew has invited you to create a plalist based on your combined musical tasts via Spotify.  Follow this link to join the fun! ' + url,
-      to: '9787587315',  // Text this number
+      to: phoneNumber,  // Text this number
       from: '+17816229676 ' // From a valid Twilio number
     }).then(() => resolve()
   ).catch((err) => reject(err));
   });
 }
-
