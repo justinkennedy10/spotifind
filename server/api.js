@@ -1,5 +1,5 @@
 const db = require('./db/controller');
-const { inviteToPlaylist } = require('./inviter');
+const { inviteToPlaylist, getInviteCode } = require('./inviter');
 
 module.exports = function(app, authenticate) {
 
@@ -23,8 +23,9 @@ module.exports = function(app, authenticate) {
     });
   });
 
+  app.
+
   app.post('/api/invite', authenticate, function(req, res) {
-    // TODO: add invitees to playlist table
     console.log(req.body);
     playlistId = req.body.playlistId;
     inviteeList = req.body.inviteeList;
@@ -36,5 +37,36 @@ module.exports = function(app, authenticate) {
       res.send(err);
     });
   });
+
+  function validateInviteCode(code, uid) {
+    return new Promise(function(resolve, reject) {
+      getInviteCode(uid).then(function(res) {
+        if (!res[0]) {
+          // First code use!
+        }
+        else if (uid == res[0]) {
+          // user matches and has already done this
+        } else {
+          reject('invalid_code');
+        }
+
+      }).catch(function (err) {
+    }
+
+    });
+
+
+    // Query for the invite code
+    // if not used
+      // add uid to row
+      // add user to user table
+      // add user to playlist table
+      // send them to selection
+    // else
+      // if uid matchs the one in table
+        // send them to selection
+      // else
+        // invalid code
+  }
 
 }

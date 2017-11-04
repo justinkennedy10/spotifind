@@ -5,7 +5,12 @@ class SpotifyLoginButton extends Component {
         console.log("Clicked");
     }
     render() {
-        return <a href="/home">Login</a>;
+        return (
+          <div class="btn new-playlist-button text-center">
+            <a href="/home"></a>
+            LOGIN WITH SPOTIFY
+          </div>
+        );
     }
 }
 
