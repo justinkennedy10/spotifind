@@ -133,3 +133,11 @@ a.list-group-item:nth-of-type(2n) {
 .details-head {
   color: rgb(205, 205, 205);
 }
+
+.radio-inline {
+  color: rgb(152, 147, 147);
+}
+
+.editor {
+  margin-top: 24px;
+}

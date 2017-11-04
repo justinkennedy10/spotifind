@@ -9,25 +9,27 @@ class PlaylistRoute extends Component {
 
     this.state = {
       playlist: {},
-      isLoading: true,
+      isLoading: !props.editing,
     }
   }
 
   componentDidMount() {
     let ref = this;
-    axios.get('/api/playlist/' + this.props.match.params.id)
-      .then(function (res) {
-        ref.setState({playlist: res.data[0], isLoading: false})
-      }).catch(function (err) {
-        console.error(err);
-      })
+    if(!this.props.editing) {
+      axios.get('/api/playlist/' + this.props.match.params.id)
+        .then(function (res) {
+          ref.setState({playlist: res.data[0], isLoading: false})
+        }).catch(function (err) {
+          console.error(err);
+        })
+    }
   }
 
   render() {
     if (this.state.isLoading) {
       return <Loading/>;
     } else {
-      return <PlaylistDetails playlist={this.state.playlist} />;
+      return <PlaylistDetails playlist={this.state.playlist} editing={this.props.editing} />;
     }
   }
 }

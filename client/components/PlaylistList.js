@@ -13,9 +13,7 @@ class PlaylistList extends Component {
   componentDidMount() {
     let ref = this;
     let url = '/api/' + this.props.user_id + '/playlists';
-    console.log(url);
     axios.get(url).then(function(res) {
-      console.log(res.data);
       ref.setState({playlists: res.data});
     });
   }
