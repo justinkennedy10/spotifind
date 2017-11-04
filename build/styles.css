@@ -2,8 +2,19 @@ body {
     background-color: #222323;
 }
 
+.media.brand {
+    margin-top: 24px;
+    font-size: 32px;
+    color: #1db954;
+}
+
+.brand img {
+    height: 50px;
+    width: 50px;
+}
+
 .playlist-list {
-    margin-top: 200px;
+    margin-top: 150px;
 }
 
 .playlist:hover,
@@ -13,7 +24,7 @@ body {
 
 .playlist-list .playlist {
     color: white;
-    padding: 12px 0px 12px 0px;
+    padding: 12px 12px 12px 12px;
 }
 
 .playlist-list .playlist .members,
@@ -25,4 +36,13 @@ body {
 
 .playlist-list {
     background-color: #515151;
+}
+
+.new-playlist-button {
+    margin-top: 24px;
+    margin-right: 12px;
+    background-color: #1db954;
+    color: white;
+    border-radius: 24px;
+    display: inline-block;
 }

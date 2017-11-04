@@ -16,7 +16,7 @@ class PlaylistList extends Component {
           "dateCreated": "9-2-17",
         }];
         return (
-          <div className="playlist-list container">
+          <div className="playlist-list">
           {playlists.map((playlist) => (
               <PlaylistItem key={playlist.id} playlist={playlist}/>
             ))}

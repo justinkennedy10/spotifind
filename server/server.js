@@ -27,7 +27,7 @@ passport.use(new SpotifyStrategy({
       access_token: accessToken,
       refresh_token: refreshToken
     })
-     return done(null, profile);
+    return done(null, profile);
   }
 ));
 
