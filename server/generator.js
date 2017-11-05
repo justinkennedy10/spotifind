@@ -8,8 +8,8 @@ const SIZES = {
     'l': 100
   }
 
-const PERCENTAGE_FAMILIAR = 0.50;
-const PERCENTAGE_NEW = 0.50;
+const PERCENTAGE_FAMILIAR = 0.40;
+const PERCENTAGE_NEW = 0.60;
 
 module.exports = {
   generatePlaylist(playlist) {
@@ -21,17 +21,18 @@ module.exports = {
       var seeds = getSeeds(playlist.users);
       var targets = getTargets(playlist.type);
       var user = getHost(playlist);
-     
+      
       var tracks = getFamiliarTracks(playlist.users, targets, familiar_size);
- 
+      
       getRecommendations(user, seeds, targets)
         .then(track_list => {
           track_list = orderByPopularity(track_list);
-          tracks += selectTracksBySize(track_list, new_size)
+          track_list = track_list.slice(0, new_size)
+          tracks = tracks.concat(track_list)
           tracks = shuffle(dedupe(tracks));
           spotify.uploadPlaylist(user, playlist.name, tracks)
             .then(spotify_id => resolve(spotify_id))
-            .catch((error, statusCode) => reject(statusCode));
+            .catch((error, statusCode) => {console.log(error, statusCode);reject(statusCode)});
         })
         .catch(err => reject(err));
     });
@@ -69,14 +70,17 @@ function shuffle(array) {
 }
 
 function getFamiliarTracks(users, targets, size) {
-  tracks = [];
+  var tracks = [];
   users.forEach(user => {
-    tracks += user.recently_played;
-    tracks += user.top_tracks;
+    tracks = tracks.concat(user.recently_played).concat(user.top_tracks);
   });
   tracks = shuffle(tracks);
   tracks = orderByPopularity(tracks);
-  return tracks.slice(0, size); 
+  track_ids = []
+  tracks.forEach(track => {
+    track_ids.push(track.id);
+  });
+  return track_ids.slice(0, size); 
 }
 
 function getSeeds(users) {
@@ -177,7 +181,7 @@ function getRecommendations(user, seeds, targets) {
 
 function orderByPopularity(track_list) {
   let counts = {};
-
+  
   track_list.forEach(function (t) {
     counts[t.id] = (counts[t.id] || 0) + 1
   });
