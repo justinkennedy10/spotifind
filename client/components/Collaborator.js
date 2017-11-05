@@ -6,7 +6,8 @@ class Collaborator extends Component {
     super(props);
 
     this.state = {
-      phone: null,
+      phone: this.props.phone,
+      spotifyId: this.props.spotifyId,
       newCollab: props.newCollab
     }
   }
@@ -44,6 +45,8 @@ class Collaborator extends Component {
         </div>
       )
     } else {
+      var status = this.state.spotifyId ? 'Accepted' : 'Invited';
+      var name = this.state.spotifyId || this.state.phone;
       collab = (
         <div className="media">
           <div className="media-left">
@@ -52,7 +55,8 @@ class Collaborator extends Component {
             </a>
           </div>
           <div className="media-body media-middle">
-            <h4>{this.props.name || this.state.phone}</h4>
+            <div class="name">{name}</div>
+            <div className="collaborator-status">{status}</div>
           </div>
         </div>
       )

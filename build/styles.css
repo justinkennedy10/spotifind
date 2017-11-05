@@ -127,6 +127,15 @@ a.list-group-item:nth-of-type(2n) {
 .collaborator {
   color: rgb(200, 200, 200);
   margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.collaborator .name {
+    font-size: 18px;
+}
+
+.collaborator-status {
+    color: lightgrey;
 }
 
 .details-head {
