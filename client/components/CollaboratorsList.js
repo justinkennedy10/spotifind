@@ -8,7 +8,7 @@ class CollaboratorsList extends Component {
     super(props);
 
     this.state = {
-      collaborators: props.collaborators || []
+      collaborators: []
     }
   }
 
@@ -28,12 +28,11 @@ class CollaboratorsList extends Component {
     axios.get('/api/playlist/' + this.props.pid + '/collaborators')
       .then(function (res) {
         ref.setState({
-          collaborators: res.data.filter(function (c) {
-            return c.phone
-          }).map(function (c) {
+          collaborators: res.data.map(function (c) {
             return {
               id: uuid(),
-              phone: c.phone
+              phone: c.phone,
+              spotify_id: c.spotify_id
             }
           })
         })
@@ -45,7 +44,7 @@ class CollaboratorsList extends Component {
       <div>
         <h3 className="details-head">Collaborators</h3>
         { this.state.collaborators.map(collab => (
-          <Collaborator uid={this.props.uid} pid={this.props.pid} newCollab={collab.newCollab} key={collab.id} name={collab.phone} image="http://placehold.it/50x50" />
+          <Collaborator uid={this.props.uid} pid={this.props.pid} newCollab={collab.newCollab} key={collab.id} name={collab.spotify_id || collab.phone} image="http://placehold.it/50x50" />
         )) }
         <div className="btn new-playlist-button text-center" onClick={this.addCollaborator.bind(this)}>
           <span className="glyphicon glyphicon-plus"></span>&nbsp; ADD COLLABORATORS

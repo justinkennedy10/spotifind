@@ -90,7 +90,7 @@ class PlaylistDetails extends Component {
             {leftPanel}
           </div>
           <div className="col-md-4 col-md-offset-2">
-            <CollaboratorsList uid={this.state.uid} pid={this.state.pid} collaborators={ this.state.collaborators } />
+            <CollaboratorsList uid={this.state.uid} pid={this.state.pid} />
           </div>
         </div>
       </div>

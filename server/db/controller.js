@@ -148,7 +148,7 @@ function getInviteCode(inviteCode) {
 
 function getCollaboratorsByPlaylist(pid) {
   return new Promise(function(resolve, reject) {
-    db.query('SELECT phone FROM InviteCodes WHERE pid = ?', pid, function (err, res) {
+    db.query('SELECT * FROM InviteCodes WHERE pid = ?', pid, function (err, res) {
       if(err) reject(err);
       else resolve(res);
     });
