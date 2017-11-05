@@ -5,6 +5,7 @@
 
 const mysql = require('mysql');
 const db = require('./connection');
+const Playlist = require('../Playlist');
 
 module.exports = {
   saveUser,
@@ -18,6 +19,7 @@ module.exports = {
   addInviteCode,
   getPlaylistForInviteCode,
   getInviteCode,
+  checkUserHostsPlaylist
 };
 
 function saveUser(user) {
@@ -74,6 +76,30 @@ function getPlaylistById(pid) {
   });
 }
 
+function getPlaylistObjectById(pid) {
+  return new Promise(function(resolve, reject) {
+    playlist = null;
+    db.query('SElECT * FROM Playlists WHERE id = ?', pid, function (err, res) {
+      if(err) {
+        reject(err);
+      } else {
+        playlist = new Playlist(res[0], res[3], res[2], res[5], []);
+        db.query('SELECT uid FROM UserPlaylists WHERE pid = ?', pid, function(err, res) {
+          if (err) {
+            reject(err);
+          } else {
+            res.forEach(row => {
+              playlist.users.push(row[0]);
+            });
+            resolve(playlist);
+          }
+        });
+      }
+    });
+  });
+}
+
+
 function getUsersByPlaylistId(pid) {
   return new Promise(function(resolve, reject) {
     db.query('SELECT U.id, U.access_token, U.refresh_token FROM Users U, UserPlaylists UP WHERE UP.pid = ?', pid, function (err, res) {
@@ -118,5 +144,29 @@ function getPlaylistForInviteCode(uniqueCode) {
 }
 
 function checkUserHostsPlaylist(uid, pid) {
+  return new Promise(function(resolve, reject) {
+    db.query('SELECT role FROM UserPlaylists WHERE uid = ? AND pid = ?', [uid, pid], function(err, res) {
+      if (err) {
+        reject(err);
+      } else {
+        if (res[0] == 'host') {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      } 
+    });
+  });
+}
 
+function saveSpotifyId(our_id, spotify_id) {
+  return new Promise(function(resolve, reject) {
+    db.query('UPDATE Playlists SET spotify_pid = ? WHERE id = ?', [our_id, spotify_id], function(err, res) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(spotify_id)
+      }
+    });
+  });
 }
