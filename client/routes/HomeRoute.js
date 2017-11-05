@@ -9,7 +9,7 @@ class PlaylistRoute extends Component {
         <div className="row">
           <NewPlaylistButton/>
         </div>
-        <PlaylistList user_id={this.props.user_id}/>
+        <PlaylistList history={this.props.history} user_id={this.props.user_id}/>
       </div>
     );
   }

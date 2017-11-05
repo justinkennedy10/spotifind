@@ -33,7 +33,7 @@ class App extends Component {
             <div className="container">
               <Brand/>
               <Switch>
-                <Route path="/home" render={() => <HomeRoute user_id={this.state.user_id} />}/>
+                <Route path="/home" render={(route) => <HomeRoute user_id={this.state.user_id} history={route.history}/>}/>
                 <Route path="/invite/:code" render={(route) => <InviteeRoute user_id={this.state.user_id} match={route.match}/>}/>
                 <Route exact path="/create" render={(route) => <PlaylistRoute match={route.match} pid={uuid()} history={route.history} user_id={this.state.user_id} />} />
                 <Route path="/playlist/:id" render={(route) => <PlaylistRoute match={route.match} user_id={this.state.user_id} />} />

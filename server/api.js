@@ -82,7 +82,7 @@ module.exports = function(app, authenticate) {
     db.savePlaylist({ id: req.params.playlist_id, name: req.body.name, type: req.body.type, size: req.body.size })
       .then(() => db.addUserToPlaylist(req.params.id, req.params.playlist_id, 'host'))
       .then(() => res.send('success'))
-      .catch(error => res.json(error));
+      .catch(error => res.status(500).json(error));
   });
 
   // Generate the playlist
