@@ -9,8 +9,8 @@ class CreatePlaylistModal extends Component {
     this.state = {
       pid: uuidv4(),
       history: props.history,
-      type: "Party",
-      size: "Small"
+      type: "party",
+      size: "s"
     };
   }
 
