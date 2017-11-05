@@ -19,7 +19,7 @@ module.exports = {
   addInviteCode,
   getPlaylistForInviteCode,
   getInviteCode,
-  checkUserHostsPlaylist
+  checkUserHostsPlaylist,
   getCollaboratorsByPlaylist
 };
 
