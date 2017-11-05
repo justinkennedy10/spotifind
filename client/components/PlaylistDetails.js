@@ -3,6 +3,7 @@ import CollaboratorsList from './CollaboratorsList';
 import SongList from './SongList';
 import Details from './Details';
 import PlaylistHeader from './PlaylistHeader';
+import Loading from './Loading';
 import axios from 'axios';
 import uuid from 'uuid';
 
@@ -58,6 +59,12 @@ class PlaylistDetails extends Component {
     })
   }
 
+  generatePlaylist() {
+    this.setState({
+      loading: true
+    })
+  }
+
   render() {
     const typeOptions = [{
       value: 'party',
@@ -77,10 +84,16 @@ class PlaylistDetails extends Component {
     }]
 
     let leftPanel;
-
-    if(!this.props.editing) {
+    if(this.state.loading) {
+      leftPanel = <Loading />
+    }else if(!this.props.editing) {
       leftPanel = (
-        <SongList songs={[]}/>
+        <div>
+          <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
+            GENERATE
+          </div>
+          <SongList songs={[]}/>
+        </div>
       )
     } else {
       leftPanel = (
@@ -97,13 +110,13 @@ class PlaylistDetails extends Component {
           </div>
           <div className="form-group text-center">
             <label className="radio-inline">
-              <input type="radio" name="sizeOptions" value="s" onChange={this.selectOption.bind(this)} /> Small ()
+              <input type="radio" name="sizeOptions" value="s" onChange={this.selectOption.bind(this)} /> Small (20-25 Songs)
             </label>
             <label className="radio-inline">
-              <input type="radio" name="sizeOptions" value="m" onChange={this.selectOption.bind(this)} /> Medium ()
+              <input type="radio" name="sizeOptions" value="m" onChange={this.selectOption.bind(this)} /> Medium (25-50 Songs)
             </label>
             <label className="radio-inline">
-              <input type="radio" name="sizeOptions" value="l" onChange={this.selectOption.bind(this)} /> Large ()
+              <input type="radio" name="sizeOptions" value="l" onChange={this.selectOption.bind(this)} /> Large (50+ Songs)
             </label>
           </div>
           <div className="form-group">
@@ -122,7 +135,7 @@ class PlaylistDetails extends Component {
     }
     return (
       <div className="container">
-        <PlaylistHeader editing={ this.props.editing } name={ this.state.name || this.props.playlist.name } type={this.state.type || this.props.playlist.name} />
+        <PlaylistHeader editing={ this.props.editing } name={ this.state.name || this.props.playlist.name } type={this.state.type || this.props.playlist.type} />
         <div className="row">
           <div className="col-md-6">
             {leftPanel}
