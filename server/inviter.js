@@ -23,7 +23,7 @@ function inviteToPlaylist(uid, playlistId, phoneNumbers) {
 function inviteToPlaylistSingle(uid, playlistId, phoneNumber) {
   return new Promise(function(resolve, reject) {
     let inviteCode = uuidv4();
-    addInviteCode(playlistId, inviteCode).then(function (res) {
+    addInviteCode(playlistId, inviteCode, phoneNumber).then(function (res) {
       sendInvite(uid, phoneNumber, inviteCode).then(() => {
         resolve();
       });
