@@ -3,7 +3,6 @@ import axios from 'axios';
 import PlaylistItem from './PlaylistItem';
 import NoPlaylists from './NoPlaylists';
 import Loading from './Loading';
-import CreatePlaylistModal from './CreatePlaylistModal';
 
 class PlaylistList extends Component {
   constructor(props) {
@@ -41,7 +40,6 @@ class PlaylistList extends Component {
           {this.state.playlists.map((playlist) => (
               <PlaylistItem key={playlist.id} playlist={playlist}/>
             ))}
-          <CreatePlaylistModal user_id={this.props.user_id} history={this.props.history}/>
           </div>
         )
       }

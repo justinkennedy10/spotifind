@@ -65,7 +65,7 @@ class CreatePlaylistModal extends Component {
                   <button type="button" className="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div className="modal-body">
-                  <form className="editor">
+                  <form>
                     <div className="form-group">
                       <input className="text name" className="form-control" placeholder="Playlist Name" onChange={this.selectOption.bind(this)}/>
                     </div>
