@@ -6,10 +6,10 @@ class PlaylistRoute extends Component {
   render() {
     return (
       <div>
-        <PlaylistList user_id={this.props.user_id}/>
         <div className="row">
           <NewPlaylistButton/>
         </div>
+        <PlaylistList user_id={this.props.user_id}/>
       </div>
     );
   }
