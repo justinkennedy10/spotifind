@@ -24,7 +24,7 @@ module.exports = function(app, authenticate) {
     db.getUserPlaylists(req.params.id).then(function (playlists) {
       res.json(playlists);
     }).catch(function (err) {
-      res.json(err);
+      res.status(500).json(err);
     });
   });
 

@@ -148,3 +148,12 @@ a.list-group-item:nth-of-type(2n) {
     font-size: 24px;
     color: white;
 }
+
+.no-playlists {
+    background-color: #515151;
+    padding: 12px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    color: white;
+    font-size: 24px;
+}
