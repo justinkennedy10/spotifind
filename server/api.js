@@ -26,6 +26,14 @@ module.exports = function(app, authenticate) {
     });
   });
 
+  app.get('/api/playlist/:id/collaborators', authenticate, function (req, res) {
+    db.getCollaboratorsByPlaylist(req.params.id).then(function (phones) {
+      res.json(phones);
+    }).catch(function (err) {
+      res.json(err);
+    })
+  })
+
   app.post('/api/invite', authenticate, function(req, res) {
     console.log(req.body);
     playlistId = req.body.playlistId;

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Collaborator from './Collaborator';
 import uuid from 'uuid';
+import axios from 'axios';
 
 class CollaboratorsList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      collaborators: props.collaborators
+      collaborators: props.collaborators || []
     }
   }
 
@@ -22,12 +23,29 @@ class CollaboratorsList extends Component {
     })
   }
 
+  componentWillMount() {
+    let ref = this;
+    axios.get('/api/playlist/' + this.props.pid + '/collaborators')
+      .then(function (res) {
+        ref.setState({
+          collaborators: res.data.filter(function (c) {
+            return c.phone
+          }).map(function (c) {
+            return {
+              id: uuid(),
+              phone: c.phone
+            }
+          })
+        })
+      })
+  }
+
   render() {
     return (
       <div>
         <h3 className="details-head">Collaborators</h3>
         { this.state.collaborators.map(collab => (
-          <Collaborator uid={this.props.uid} pid={this.props.pid} newCollab={collab.newCollab} key={collab.id} name={collab.name} image="http://placehold.it/50x50" />
+          <Collaborator uid={this.props.uid} pid={this.props.pid} newCollab={collab.newCollab} key={collab.id} name={collab.phone} image="http://placehold.it/50x50" />
         )) }
         <div className="btn new-playlist-button text-center" onClick={this.addCollaborator.bind(this)}>
           <span className="glyphicon glyphicon-plus"></span>&nbsp; ADD COLLABORATORS

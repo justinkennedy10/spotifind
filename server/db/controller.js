@@ -20,6 +20,7 @@ module.exports = {
   getPlaylistForInviteCode,
   getInviteCode,
   checkUserHostsPlaylist
+  getCollaboratorsByPlaylist
 };
 
 function saveUser(user) {
@@ -118,11 +119,12 @@ function getAuthorizedUserPlaylists(uid) {
   });
 }
 
-function addInviteCode(pid, inviteCode) {
+function addInviteCode(pid, inviteCode, phone) {
   return new Promise(function(resolve, reject) {
     db.query('INSERT INTO InviteCodes SET ?', {
       pid,
-      invite_code: inviteCode
+      invite_code: inviteCode,
+      phone
     }, function (err, res) {
       if(err) reject(err);
       else resolve(res);
@@ -136,6 +138,15 @@ function getInviteCode(inviteCode) {
       if (err) reject(err);
       else resolve(res);
     });
+  });
+}
+
+function getCollaboratorsByPlaylist(pid) {
+  return new Promise(function(resolve, reject) {
+    db.query('SELECT phone FROM InviteCodes WHERE pid = ?', pid, function (err, res) {
+      if(err) reject(err);
+      else resolve(res);
+    })
   });
 }
 
@@ -154,7 +165,7 @@ function checkUserHostsPlaylist(uid, pid) {
         } else {
           resolve(false);
         }
-      } 
+      }
     });
   });
 }

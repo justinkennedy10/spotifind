@@ -84,9 +84,10 @@ class PlaylistDetails extends Component {
     }]
 
     let leftPanel;
+    let collabs;
     if(this.state.loading) {
       leftPanel = <Loading />
-    }else if(!this.props.editing) {
+    } else if(!this.props.editing) {
       leftPanel = (
         <div>
           <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
@@ -95,7 +96,9 @@ class PlaylistDetails extends Component {
           <SongList songs={[]}/>
         </div>
       )
+      collabs = <CollaboratorsList uid={this.props.uid} pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ this.state.collaborators } />
     } else {
+      collabs = (<h3>Save settings to add collaborators</h3>)
       leftPanel = (
         <form className="editor">
           <div className="form-group">
@@ -126,12 +129,6 @@ class PlaylistDetails extends Component {
           </div>
         </form>
       )
-    }
-    let collabs;
-    if(!this.props.editing) {
-      collabs = <CollaboratorsList uid={this.props.uid} pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ [] } />
-    } else {
-      collabs = (<h3>Save settings to add collaborators</h3>)
     }
     return (
       <div className="container">
