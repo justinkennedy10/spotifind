@@ -20,14 +20,14 @@ module.exports = {
           spotify.uploadPlaylist(user, playlist.name, tracks)
             .then(spotify_id => resolve(spotify_id))
             .catch((error, statusCode) => reject(statusCode));
-          })
-          .catch(err => reject(err));
+        })
+        .catch(err => reject(err));
     });
   }
 }
 
 function getSeeds(users) {
-	
+
 }
 
 function getTargets(type) {
@@ -36,7 +36,7 @@ function getTargets(type) {
 
 function getRecommendations(seeds, targets) {
   return new Promise(function(resolve, reject) {
-			
+
   });
 }
 
