@@ -117,7 +117,7 @@ class PlaylistDetails extends Component {
           <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
             GENERATE
           </div>
-          <SongList songs={this.state.songs}/>
+            <iframe className="embed-responsive-item" src="https://open.spotify.com/embed/user/1216093278/playlist/3qWrpLBAQGRmzD0TvDjqYh" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>
         </div>
       )
       collabs = <CollaboratorsList uid={this.state.uid} pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ this.state.collaborators } />

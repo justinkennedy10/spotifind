@@ -9,6 +9,7 @@ scope = [
   'user-read-email',
   'user-read-private',
   'playlist-modify-public',
+  'playlist-read-private',
   'user-top-read',
   'user-read-recently-played'
 ];

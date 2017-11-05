@@ -2,7 +2,9 @@ const db = require('./db/controller');
 const Playlist = require('./Playlist');
 const { populateGenerationData } = require('./populater');
 const { generatePlaylist } = require('./generator');
-const { inviteToPlaylist} = require('./inviter');
+const { inviteToPlaylist } = require('./inviter');
+const { downloadPlaylist, refreshToken } = require('./spotify');
+const User = require('./User');
 
 module.exports = function(app, authenticate) {
 
@@ -33,6 +35,32 @@ module.exports = function(app, authenticate) {
       res.json(err);
     })
   })
+
+  // This gets the tracks for a playlist
+  app.get('/api/spotifyplaylist/:id', authenticate, function(req, res) {
+    db.getAccessAndRefreshTokens(req.user.id)
+      .then((tokens) => {
+        user = new User(req.user.id, tokens.access_token, tokens.refresh_token);
+        refreshToken(user.refresh_token)
+          .then((access_token) => {
+	           user.access_token = access_token;
+             downloadPlaylist(user, req.params.id)
+              .then((playlist) => {
+                console.log(playlist);
+                res.send(playlist);
+              }).catch((err) => {
+                console.log(err, "1");
+                res.status(500).send(err);
+              });
+          }).catch((err) => {
+            console.log(err, "2");
+            res.status(500).send(err);
+          });
+        }).catch((err) => {
+          console.log(err, "3");
+          res.status(500).send(err);
+        });
+  });
 
   app.post('/api/invite', authenticate, function(req, res) {
     playlistId = req.body.playlistId;

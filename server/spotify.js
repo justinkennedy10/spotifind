@@ -21,8 +21,8 @@ const DESCRIPTIONS = [
   getTopArtists(user: User, term: String?short_term,medium_term,long_term?) => tracks: Array[<artist_id: String>]
   getRecommendations(
     user: User,
-    seed_artists: Array[<artist_id: String>],     
-    seed_genres: Array[<genre_id: String>],        seed_artists + seed_genres + seed_tracks <= 5 
+    seed_artists: Array[<artist_id: String>],
+    seed_genres: Array[<genre_id: String>],        seed_artists + seed_genres + seed_tracks <= 5
     seed_tracks: Array[<track_id: String>],
     targets: Array[{<attribute: String>,<value: Float>}]) => tracks: Array[<artist_id: String>]
 */
@@ -65,14 +65,14 @@ function uploadPlaylist(user, name, tracks) {
         tracks.forEach(track => {
           uris.push('spotify:track:' + track);
         });
-         
+
         var options = {
           url: 'https://api.spotify.com/v1/users/' + user.uid + '/playlists/' + playlist_id + '/tracks',
           headers: { 'Authorization': 'Bearer ' + user.access_token, 'Content-Type': 'application/json' },
           body: JSON.stringify({ uris: uris }),
           dataType: 'json'
         }
-        
+
         request.post(options, function(error, response, body) {
           if(!error && response.statusCode === 201) {
             resolve(playlist_id);
@@ -80,12 +80,12 @@ function uploadPlaylist(user, name, tracks) {
             reject(error, response.statusCode);
           }
         });
-        
+
       } else {
         reject(error, response.statusCode);
       }
     });
-  }); 
+  });
 }
 
 function getUsersPlaylists(user) {
@@ -104,7 +104,7 @@ function getUsersPlaylists(user) {
         resolve(playlists);
       } else {
         reject(error, response.statusCode);
-      }    
+      }
     });
   });
 }
@@ -115,7 +115,6 @@ function downloadPlaylist(user, playlist) {
       url: 'https://api.spotify.com/v1/users/' + user.uid + '/playlists/' + playlist + '/tracks?fields=items(track(id,popularity))',
       headers: { 'Authorization': 'Bearer ' + user.access_token },
     }
-
     request.get(options, function(error, response, body) {
       if(!error && response.statusCode === 200) {
         var tracks = []
@@ -125,7 +124,7 @@ function downloadPlaylist(user, playlist) {
         resolve(tracks);
       } else {
         reject(error, response.statusCode);
-      }    
+      }
     });
   });
 }
@@ -135,12 +134,12 @@ function getAudioFeatures(user, tracks) {
     if (tracks.length > 100) {
       reject('too many tracks', null);
     }
-    
+
     var options = {
       url: 'https://api.spotify.com/v1/audio-features?ids=' + tracks.join(),
       headers: { 'Authorization': 'Bearer ' + user.access_token }
     }
-     
+
     request.get(options, function(error, response, body) {
       if(!error && response.statusCode === 200) {
         resolve(JSON.parse(body));
@@ -153,12 +152,12 @@ function getAudioFeatures(user, tracks) {
 
 function getRecentlyPlayed(user) {
   return new Promise((resolve, reject) => {
-    
+
     var options = {
       url: 'https://api.spotify.com/v1/me/player/recently-played?limit=50',
       headers: { 'Authorization': 'Bearer ' + user.access_token }
     }
-     
+
     request.get(options, function(error, response, body) {
       if(!error && response.statusCode === 200) {
         var tracks = [];
@@ -175,12 +174,12 @@ function getRecentlyPlayed(user) {
 
 function getTopTracks(user, term) {
   return new Promise((resolve, reject) => {
-    
+
     var options = {
       url: 'https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=' + term,
       headers: { 'Authorization': 'Bearer ' + user.access_token }
     }
-     
+
     request.get(options, function(error, response, body) {
       if(!error && response.statusCode === 200) {
         var tracks = [];
@@ -197,12 +196,12 @@ function getTopTracks(user, term) {
 
 function getTopArtists(user, term) {
   return new Promise((resolve, reject) => {
-    
+
     var options = {
       url: 'https://api.spotify.com/v1/me/top/artists?limit=50&time_range=' + term,
       headers: { 'Authorization': 'Bearer ' + user.access_token }
     }
-     
+
     request.get(options, function(error, response, body) {
       if(!error && response.statusCode === 200) {
         var artists = [];
@@ -218,7 +217,7 @@ function getTopArtists(user, term) {
 }
 
 function getRecommendations(user, artists, genres, tracks, targets) {
-  
+
   var seedCount = 0;
   seedCount += artists ? artists.length : 0;
   seedCount += genres ? genres.length : 0;
@@ -230,9 +229,9 @@ function getRecommendations(user, artists, genres, tracks, targets) {
   if (!targets) {
     targets = []
   }
- 
+
   return new Promise((resolve, reject) => {
-  
+
     var url = 'https://api.spotify.com/v1/recommendations'
     url += '?limit=100'
     url += artists ? '&seed_artists=' + artists.join() : ''
@@ -261,7 +260,7 @@ function getRecommendations(user, artists, genres, tracks, targets) {
   });
 }
 
-module.exports = { 
+module.exports = {
   refreshToken,
   uploadPlaylist,
   getUsersPlaylists,
