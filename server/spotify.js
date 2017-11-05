@@ -70,8 +70,6 @@ function uploadPlaylist(user, name, tracks) {
         }
         
         request.post(options, function(error, response, body) {
-          console.log('ADD TRACKS')
-          console.log(body)
           if(!error && response.statusCode === 201) {
             resolve(playlist_id);
           } else {
@@ -141,7 +139,7 @@ function getAudioFeatures(user, tracks) {
      
     request.get(options, function(error, response, body) {
       if(!error && response.statusCode === 200) {
-        resolve(body);
+        resolve(JSON.parse(body));
       } else {
         reject(error, response.statusCode);
       }

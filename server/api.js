@@ -2,9 +2,7 @@ const db = require('./db/controller');
 const Playlist = require('./Playlist');
 const { populateGenerationData } = require('./populater');
 const { generatePlaylist } = require('./generator');
-const {
-  inviteToPlaylist,
-} = require('./inviter');
+const { inviteToPlaylist} = require('./inviter');
 
 module.exports = function(app, authenticate) {
 
@@ -70,7 +68,7 @@ module.exports = function(app, authenticate) {
       // Generate the playlist
       .then(playlist => generatePlaylist(playlist))
       // Save the spotify id
-      .then(spotify_playlist_id => db.saveSpotifyId(req.params.playlist_id, spotify_playlist_+id))
+      .then(spotify_playlist_id => db.saveSpotifyId(req.params.playlist_id, spotify_playlist_id))
       // Send that shit back
       .then(spotify_playlist_id => res.send(spotify_playlist_id))
       .catch(error => res.json(error));

@@ -5,6 +5,14 @@ const passport = require('passport');
 const session = require('express-session');
 const SpotifyStrategy = require('passport-spotify').Strategy;
 
+scope = [
+  'user-read-email',
+  'user-read-private',
+  'playlist-modify-public',
+  'user-top-read',
+  'user-read-recently-played'
+];
+
 module.exports = function(app, passport) {
   app.use(session({
     secret: config.sessionSecret,
@@ -45,7 +53,7 @@ module.exports = function(app, passport) {
   });
 
   app.get('/auth/',
-    passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+    passport.authenticate('spotify', {scope: scope, showDialog: true}),
     function(req, res) {}
   );
 

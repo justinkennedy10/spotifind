@@ -185,7 +185,7 @@ function checkUserHostsPlaylist(uid, pid) {
 
 function saveSpotifyId(our_id, spotify_id) {
   return new Promise(function(resolve, reject) {
-    db.query('UPDATE Playlists SET spotify_pid = ? WHERE id = ?', [our_id, spotify_id], function(err, res) {
+    db.query('UPDATE Playlists SET spotify_pid = ? WHERE id = ?', [spotify_id, our_id], function(err, res) {
       if (err) {
         reject(err)
       } else {
@@ -197,7 +197,7 @@ function saveSpotifyId(our_id, spotify_id) {
 
 function getAccessAndRefreshTokens(uid) {
   return new Promise(function(resolve, reject) {
-    db.query('SELECT access_token, refresh_token FROM Users WHERE uid = ?', uid, function(err, res) {
+    db.query('SELECT access_token, refresh_token FROM Users WHERE id = ?', uid, function(err, res) {
       if (err) {
         reject(err);
       } else {
