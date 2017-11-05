@@ -41,8 +41,8 @@ module.exports = function(app, authenticate) {
 
   //Create a playlist
   app.post('/api/:id/playlists/:playlist_id', authenticate, function(req, res) {
-    db.savePlaylist({ name: req.body.name, type: req.body.type, size: req.body.size })
-      .then(() => db.addUserToPlaylist(req.params.id, req.params.playlist_id, 'HOST'))
+    db.savePlaylist({ id: req.params.playlist_id, name: req.body.name, type: req.body.type, size: req.body.size })
+      .then(() => db.addUserToPlaylist(req.params.id, req.params.playlist_id, 'host'))
       .then(() => res.send('success'))
       .catch(error => res.json(error));
   });
@@ -50,7 +50,7 @@ module.exports = function(app, authenticate) {
   //Update a playlist
   app.put('/api/:id/playlists/:playlist_id', authenticate, function(req, res) {
     db.checkUserHostsPlaylist(req.param.id, req.param.playlist_id)
-      .then(() => db.savePlaylist({ name: req.body.name, type: req.body.type, size: req.body.size }))
+      .then(() => db.savePlaylist({ id: req.params.playlist_id, name: req.body.name, type: req.body.type, size: req.body.size }))
       .then(() => res.send('success'))
       .catch(error => res.json(error));
   });
