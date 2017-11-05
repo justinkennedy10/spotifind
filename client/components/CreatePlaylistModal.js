@@ -28,14 +28,12 @@ class CreatePlaylistModal extends Component {
   createPlaylist() {
     var historyObj = this.state.history;
     var url = `/api/${this.props.user_id}/playlists/${this.state.pid}`;
-    console.log(url);
     axios.post(url, {
       name: this.state.name,
       type: this.state.type,
       size: this.state.size
     }).then((res) => {
-      console.log(res);
-      historyObj.push('/playlists/' + this.state.pid);
+      historyObj.push('/playlist/' + this.state.pid);
     }).catch((err) => {
       console.log(err);
     });
