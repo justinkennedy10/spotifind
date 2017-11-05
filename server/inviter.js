@@ -38,7 +38,7 @@ function sendInvite(uid, phoneNumber, inviteCode) {
   var accountSid = config.twilioSid;
   var authToken = config.twilioAuthToken;
   var client = new twilio(accountSid, authToken);
-  var url = "http://localhost:3000/invite/" + inviteCode;
+  var url = "http://www.spotifind.tech/invite/" + inviteCode;
 
   return new Promise(function(resolve, reject) {
       client.messages.create({
