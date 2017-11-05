@@ -51,7 +51,6 @@ module.exports = function(app, authenticate) {
 
   // Generate the playlist
   app.post('/api/:id/playlists/:playlist_id/generate', authenticate, function(req, res) {
-    var playlist = null;
     // Ensure that the user owns this playlist
     db.checkUserHostsPlaylist(req.params.id, req.params.playlist_id)
       // Get the playlist
@@ -59,7 +58,7 @@ module.exports = function(app, authenticate) {
       // Populate the data
       .then(playlist => populateGenerationData(playlist))
       // Generate the playlist
-      .then((playlist) => generatePlaylist(playlist))
+      .then(playlist => generatePlaylist(playlist))
       // Save the spotify id
       .then(spotify_playlist_id => db.saveSpotifyId(req.params.playlist_id, spotify_playlist_+id))
       // Send that shit back

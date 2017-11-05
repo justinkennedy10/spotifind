@@ -14,12 +14,15 @@ module.exports = {
   authorizeUserPlaylist,
   getUserPlaylists,
   getPlaylistById,
+  getPlaylistObjectById,
   getUsersByPlaylistId,
   getAuthorizedUserPlaylists,
   addInviteCode,
   getPlaylistForInviteCode,
   getInviteCode,
-  checkUserHostsPlaylist
+  checkUserHostsPlaylist,
+  saveSpotifyId,
+  getAccessAndRefreshTokens
 };
 
 function saveUser(user) {
@@ -83,13 +86,13 @@ function getPlaylistObjectById(pid) {
       if(err) {
         reject(err);
       } else {
-        playlist = new Playlist(res[0], res[3], res[2], res[5], []);
+        playlist = new Playlist(res[0][0], res[0][3], res[0][2], res[0][5], []);
         db.query('SELECT uid FROM UserPlaylists WHERE pid = ?', pid, function(err, res) {
           if (err) {
             reject(err);
           } else {
             res.forEach(row => {
-              playlist.users.push(row[0]);
+              playlist.users.push(row[0][0]);
             });
             resolve(playlist);
           }
@@ -149,7 +152,7 @@ function checkUserHostsPlaylist(uid, pid) {
       if (err) {
         reject(err);
       } else {
-        if (res[0] == 'host') {
+        if (res[0][0] == 'host') {
           resolve(true);
         } else {
           resolve(false);
@@ -169,4 +172,16 @@ function saveSpotifyId(our_id, spotify_id) {
       }
     });
   });
+}
+
+function getAccessAndRefreshTokens(uid) {
+  return new Promise(function(resolve, reject) {
+    db.query('SELECT access_token, refresh_token FROM Users WHERE uid = ?', uid, function(err, res) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res[0]);
+      }
+    });
+  }
 }
