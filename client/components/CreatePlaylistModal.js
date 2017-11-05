@@ -9,13 +9,12 @@ class CreatePlaylistModal extends Component {
     this.state = {
       pid: uuidv4(),
       history: props.history,
-      type: "Party",
-      size: "Small"
+      type: "party",
+      size: "s"
     };
   }
 
   selectOption(e) {
-    console.log(e);
     if(e.target.name === 'typeOptions') {
       this.setState({
         type: e.target.value
@@ -85,10 +84,10 @@ class CreatePlaylistModal extends Component {
                 </div>
                 <div class="col-xs-6 text-center">
                   <div class="dropdown-label">Size:</div>
-                  <select onChange={this.selectOption.bind(this)}>
-                    <option name="sizeOptions" value="s">Small (25 songs)</option>
-                    <option name="sizeOptions" value="m">Medium (50 songs)</option>
-                    <option name="sizeOptions" value="l">Large (100 songs)</option>
+                  <select name="sizeOptions" onChange={this.selectOption.bind(this)}>
+                    <option value="s">Small (25 songs)</option>
+                    <option value="m">Medium (50 songs)</option>
+                    <option value="l">Large (100 songs)</option>
                   </select>
                 </div>
               </div>
