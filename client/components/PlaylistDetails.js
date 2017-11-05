@@ -18,13 +18,26 @@ class PlaylistDetails extends Component {
           name: props.history.location.state.name,
           type: props.history.location.state.type
         },
-        songs: props.songs || []
+        songs: props.songs || [],
+        uid: props.uid
       }
     } else {
       this.state = {
         playlist: props.playlist,
-        songs: props.songs || []
+        songs: props.songs || [],
+        uid: props.uid
       }
+    }
+  }
+
+  componentWillMount() {
+    let ref = this;
+    if(!this.state.uid) {
+      axios.get('/api/me').then(function(res) {
+        ref.setState({
+          uid: res.data.id
+        })
+      });
     }
   }
 
@@ -47,7 +60,7 @@ class PlaylistDetails extends Component {
   savePlaylist() {
     const pid = uuid();
     let ref = this;
-    const endpoint = `/api/${this.props.uid}/playlists/${pid}`;
+    const endpoint = `/api/${this.state.uid}/playlists/${pid}`;
     axios.post(endpoint, {
       name: ref.state.name,
       type: ref.state.type,
@@ -66,8 +79,9 @@ class PlaylistDetails extends Component {
       loading: true
     })
     let ref = this;
-    axios.post('/api/playlist/' + this.state.playlist.id + '/generate')
+    axios.post('/api/' + this.state.uid + '/playlists/' + this.state.playlist.id + '/generate')
       .then(function (res) {
+        console.log(res);
         ref.setState({
           loading: false,
           songs: res.data
@@ -106,7 +120,7 @@ class PlaylistDetails extends Component {
           <SongList songs={this.state.songs}/>
         </div>
       )
-      collabs = <CollaboratorsList uid={this.props.uid} pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ this.state.collaborators } />
+      collabs = <CollaboratorsList uid={this.state.uid} pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ this.state.collaborators } />
     } else {
       collabs = (<h3>Save settings to add collaborators</h3>)
       leftPanel = (
