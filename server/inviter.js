@@ -41,9 +41,8 @@ function sendInvite(uid, phoneNumber, inviteCode) {
   var url = "http://localhost:3000/invite/" + inviteCode;
 
   return new Promise(function(resolve, reject) {
-      console.log("Sending invite to", phoneNumber, ": ", inviteCode);
       client.messages.create({
-      body: `Spotify user ${uid} has invited you to create a plalist based on your combined musical tasts via Spotify.  Follow this link to join the fun!  ${url}`,
+      body: `Spotify user ${uid} has invited you to create a playlist based on your combined musical tasts via Spotify.  Follow this link to join the fun!  ${url}`,
       to: phoneNumber,  // Text this number
       from: '+17816229676 ' // From a valid Twilio number
     }).then(() => resolve()
