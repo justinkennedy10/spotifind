@@ -7,6 +7,23 @@ import axios from 'axios';
 import uuid from 'uuid';
 
 class PlaylistDetails extends Component {
+  constructor(props) {
+    super(props);
+
+    if(props.history && !props.editing) {
+      this.state = {
+        playlist: {
+          id: props.history.location.state.id,
+          name: props.history.location.state.name,
+          type: props.history.location.state.type
+        }
+      }
+    } else {
+      this.state = {
+        playlist: props.playlist
+      }
+    }
+  }
 
   selectOption(e) {
     if(e.target.name === 'typeOptions') {
@@ -26,7 +43,19 @@ class PlaylistDetails extends Component {
 
   savePlaylist() {
     const pid = uuid();
-    // save in db
+    let ref = this;
+    const endpoint = `/api/${this.props.uid}/playlists/${pid}`;
+    axios.post(endpoint, {
+      name: ref.state.name,
+      type: ref.state.type,
+      size: ref.state.size
+    }).then(function (res) {
+      ref.props.history.push({
+        pathname: '/playlist/' + pid,
+        state: { id: pid,  name: ref.state.name, type: ref.state.type }
+      })
+    }).catch(function (err) {
+    })
   }
 
   render() {
@@ -51,7 +80,7 @@ class PlaylistDetails extends Component {
 
     if(!this.props.editing) {
       leftPanel = (
-        <SongList songs={songs}/>
+        <SongList songs={[]}/>
       )
     } else {
       leftPanel = (
@@ -87,13 +116,13 @@ class PlaylistDetails extends Component {
     }
     let collabs;
     if(!this.props.editing) {
-      collabs = <CollaboratorsList pid={this.props.playlist.id} editing={ this.props.editing } collaborators={ [] } />
+      collabs = <CollaboratorsList pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ [] } />
     } else {
       collabs = (<h3>Save settings to add collaborators</h3>)
     }
     return (
       <div className="container">
-        <PlaylistHeader editing={ this.props.editing } name={ this.props.playlist.name } type={this.props.playlist.type} />
+        <PlaylistHeader editing={ this.props.editing } name={ this.state.name || this.props.playlist.name } type={this.state.type || this.props.playlist.name} />
         <div className="row">
           <div className="col-md-6">
             {leftPanel}
