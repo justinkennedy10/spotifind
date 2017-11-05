@@ -19,7 +19,8 @@ class App extends Component {
   }
   componentWillMount() {
     var ref = this;
-    axios.get('api/me').then(function(res) {
+    axios.get('/api/me').then(function(res) {
+      console.log(res.data);
       ref.setState({user_id: res.data.id, isLoading:false});
     });
   }
