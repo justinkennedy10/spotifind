@@ -36,7 +36,7 @@ class PlaylistDetails extends Component {
   }
 
   generatePlaylist() {
-    thie.setState({
+    this.setState({
       loading: true
     })
     let ref = this;
