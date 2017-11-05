@@ -66,8 +66,9 @@ class PlaylistDetails extends Component {
       loading: true
     })
     let ref = this;
-    axios.post('/api/playlist/' + this.state.playlist.id + '/generate')
+    axios.post('/api/' + this.props.uid + '/playlists/' + this.state.playlist.id + '/generate')
       .then(function (res) {
+        console.log(res);
         ref.setState({
           loading: false,
           songs: res.data

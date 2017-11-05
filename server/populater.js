@@ -6,7 +6,7 @@ module.exports = {
   populateGenerationData(playlist) {
     return new Promise((resolve, reject) => {
       var newUsers = [];
-  
+      console.log(playlist);
       // For each user
       playlist.users.forEach(user => {
         console.log(user);

@@ -87,13 +87,13 @@ function getPlaylistObjectById(pid) {
       if(err) {
         reject(err);
       } else {
-        playlist = new Playlist(res[0][0], res[0][3], res[0][2], res[0][5], []);
+        playlist = new Playlist(res[0].id, res[0].type, res[0].name, res[0].size, []);
         db.query('SELECT uid FROM UserPlaylists WHERE pid = ?', pid, function(err, res) {
           if (err) {
             reject(err);
           } else {
             res.forEach(row => {
-              playlist.users.push(row[0][0]);
+              playlist.users.push(row.uid);
             });
             resolve(playlist);
           }
@@ -163,7 +163,7 @@ function checkUserHostsPlaylist(uid, pid) {
       if (err) {
         reject(err);
       } else {
-        if (res[0][0] == 'host') {
+        if (res[0] == 'host') {
           resolve(true);
         } else {
           resolve(false);
