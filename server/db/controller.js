@@ -22,7 +22,7 @@ module.exports = {
   getInviteCode,
   checkUserHostsPlaylist,
   saveSpotifyId,
-  getAccessAndRefreshTokens
+  getAccessAndRefreshTokens,
   getCollaboratorsByPlaylist
 };
 
@@ -194,5 +194,5 @@ function getAccessAndRefreshTokens(uid) {
         resolve(res[0]);
       }
     });
-  }
+  });
 }
