@@ -8,7 +8,6 @@ module.exports = {
 }
 
 function inviteToPlaylist(uid, playlistId, phoneNumbers) {
-  console.log(phoneNumbers);
   return Promise.all(
       phoneNumbers.map(function(phoneNumber) {
         inviteToPlaylistSingle(uid, playlistId, phoneNumber);
@@ -29,7 +28,6 @@ function inviteToPlaylistSingle(uid, playlistId, phoneNumber) {
       });
     })
     .catch(function(err) {
-      console.log(err);
     });
   });
 }

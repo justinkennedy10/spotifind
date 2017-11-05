@@ -90,7 +90,7 @@ module.exports = function(app, authenticate) {
     // Ensure that the user owns this playlist
     db.checkUserHostsPlaylist(req.params.id, req.params.playlist_id)
       // Get the playlist
-      .then(() => db.getPlaylistObjectById(req.params.playlist_id))
+      .then(() => db.getPlaylistObjectById(req.params.playlist_id, req.params.id))
       // Populate the data
       .then(playlist => populateGenerationData(playlist))
       // Generate the playlist

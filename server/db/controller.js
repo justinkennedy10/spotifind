@@ -81,7 +81,7 @@ function getPlaylistById(pid) {
   });
 }
 
-function getPlaylistObjectById(pid) {
+function getPlaylistObjectById(pid, host_id) {
   return new Promise(function(resolve, reject) {
     playlist = null;
     db.query('SElECT * FROM Playlists WHERE id = ?', pid, function (err, res) {
@@ -96,6 +96,7 @@ function getPlaylistObjectById(pid) {
             res.forEach(row => {
               playlist.users.push(row.uid);
             });
+            playlist.host_id = host_id
             resolve(playlist);
           }
         });
