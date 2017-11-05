@@ -2,19 +2,37 @@ const spotify = require('./spotify');
 const User = require('./User');
 const dedupe = require('dedupe');
 
+const SIZES = {
+    's': 25,
+    'm': 50,
+    'l': 100
+  }
+
+const PERCENTAGE_FAMILIAR = 0.40;
+const PERCENTAGE_NEW = 0.60;
+
 module.exports = {
   generatePlaylist(playlist) {
     return new Promise((resolve, reject) => {
+
+      var familiar_size = PERCENTAGE_FAMILIAR * SIZES[playlist.size];
+      var new_size = PERCENTAGE_NEW * SIZES[playlist.size];
+
       var seeds = getSeeds(playlist.users);
       var targets = getTargets(playlist.type);
       var user = getHost(playlist);
+      
+      var tracks = getFamiliarTracks(playlist.users, targets, familiar_size);
+      
       getRecommendations(user, seeds, targets)
         .then(track_list => {
           track_list = orderByPopularity(track_list);
-          track_list = selectTracksBySize(track_list, playlist.size)
-          spotify.uploadPlaylist(user, playlist.name, track_list)
+          track_list = track_list.slice(0, new_size)
+          tracks = tracks.concat(track_list)
+          tracks = shuffle(dedupe(tracks));
+          spotify.uploadPlaylist(user, playlist.name, tracks)
             .then(spotify_id => resolve(spotify_id))
-            .catch((error, statusCode) => reject(statusCode));
+            .catch((error, statusCode) => {console.log(error, statusCode);reject(statusCode)});
         })
         .catch(err => reject(err));
     });
@@ -32,19 +50,54 @@ function getHost(playlist) {
   return new User(playlist.host_id, playlist.users[i].access_token, playlist.users[i].refresh_token)  
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function getFamiliarTracks(users, targets, size) {
+  var tracks = [];
+  users.forEach(user => {
+    tracks = tracks.concat(user.recently_played).concat(user.top_tracks);
+  });
+  tracks = orderByPopularity(tracks);
+  tracks = shuffle(tracks);
+  track_ids = []
+  tracks.forEach(track => {
+    track_ids.push(track.id);
+  });
+  return track_ids.slice(0, size); 
+}
+
 function getSeeds(users) {
-  const SEED_COUNT = 10;
-  let tracks = [], artists = [], top_tracks = [];
+  const TRACKS_SEED_COUNT = 20;
+  const ARTISTS_SEED_COUNT = 20;
+  let tracks = [], artists = [];
   users.forEach(function (user) {
-    tracks = tracks.concat(user.recently_played);
-    top_tracks = top_tracks.concat(user.top_tracks.slice(0,SEED_COUNT));
+    tracks = tracks.concat(user.recently_played).concat(user.top_tracks);
     artists = artists.concat(user.top_artists);
   });
+  tracks = shuffle(tracks);
+  artists = shuffle(artists);
   tracks = orderByPopularity(tracks);
   artists = orderByPopularity(artists);
   return {
-    tracks: tracks.concat(top_tracks),
-    artists: artists,
+    tracks: tracks.slice(0, TRACKS_SEED_COUNT),
+    artists: artists.slice(0, ARTISTS_SEED_COUNT),
     genres: []
   }
 }
@@ -91,7 +144,7 @@ function getTargets(type) {
 }
 
 function getRecommendations(user, seeds, targets) {
-  const REC_CALLS = 15;
+  const REC_CALLS = 20;
   const ARTISTS_PER_CALL = 2;
   const TRACKS_PER_CALL = 3;
   const GENRES_PER_CALL = 0;
@@ -128,7 +181,7 @@ function getRecommendations(user, seeds, targets) {
 
 function orderByPopularity(track_list) {
   let counts = {};
-
+  
   track_list.forEach(function (t) {
     counts[t.id] = (counts[t.id] || 0) + 1
   });
@@ -138,12 +191,6 @@ function orderByPopularity(track_list) {
   });
 }
 
-function selectTracksBySize(track_list, size) {
-  const sizes = {
-    's': 25,
-    'm': 50,
-    'l': 100
-  }
-
-  return track_list.slice(0, sizes[size]);
+function selectTracksBySize(track_list, size) { 
+  return track_list.slice(0, SIZES[size]);
 }
