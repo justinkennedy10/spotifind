@@ -29,14 +29,14 @@ class PlaylistDetails extends Component {
     axios.get('/api/playlist/' + ref.state.pid)
       .then(function (res) {
         const playlist = res.data[0];
-        ref.setState({name: playlist.name, type: playlist.type, loading: false})
+        ref.setState({name: playlist.name, type: playlist.type, spotify_pid: playlist.spotify_pid, loading: false})
       }).catch(function (err) {
         console.error(err);
       })
   }
 
   generatePlaylist() {
-    thie.setState({
+    this.setState({
       loading: true
     })
     let ref = this;
@@ -44,7 +44,7 @@ class PlaylistDetails extends Component {
       .then(function (res) {
         ref.setState({
           loading: false,
-          songs: res.data
+          spotify_pid: res.data
         })
       })
   }
@@ -72,12 +72,13 @@ class PlaylistDetails extends Component {
     if(this.state.loading) {
       leftPanel = <Loading />
     } else {
+      let playlistSrc = `https://open.spotify.com/embed/user/${this.state.uid}/playlist/${this.state.spotify_pid}`;
       leftPanel = (
         <div>
           <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
             GENERATE
           </div>
-            <iframe className="embed-responsive-item" src="https://open.spotify.com/embed/user/1216093278/playlist/3qWrpLBAQGRmzD0TvDjqYh" width="100%" height="380" frameBorder="0" allowTransparency="true"></iframe>
+            <iframe className="embed-responsive-item" src={playlistSrc} width="100%" height="380" frameBorder="0" allowTransparency="true"></iframe>
         </div>
       )
     }
