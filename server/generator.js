@@ -74,8 +74,8 @@ function getFamiliarTracks(users, targets, size) {
   users.forEach(user => {
     tracks = tracks.concat(user.recently_played).concat(user.top_tracks);
   });
-  tracks = shuffle(tracks);
   tracks = orderByPopularity(tracks);
+  tracks = shuffle(tracks);
   track_ids = []
   tracks.forEach(track => {
     track_ids.push(track.id);
