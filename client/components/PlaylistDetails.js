@@ -44,7 +44,7 @@ class PlaylistDetails extends Component {
       .then(function (res) {
         ref.setState({
           loading: false,
-          songs: res.data
+          spotify_pid: res.data
         })
       })
   }
