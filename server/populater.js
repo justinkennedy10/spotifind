@@ -18,7 +18,7 @@ function populateUser(user_id) {
   return new Promise((resolve, reject) => {
     getAccessAndRefreshTokens(user_id)
       .then(tokens => {
-        user = new User(user_id, tokens.access_token, tokens.refresh_token);
+        var user = new User(user_id, tokens.access_token, tokens.refresh_token);
         spotify.refreshToken(user.refresh_token)
           .then(access_token => {
 	    user.access_token = access_token;

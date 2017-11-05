@@ -7,8 +7,8 @@ module.exports = {
     return new Promise((resolve, reject) => {
       var seeds = getSeeds(playlist.users);
       var targets = getTargets(playlist.type);
-
-      getRecommendations(seeds, targets)
+      var user = getHost(playlist);
+      getRecommendations(user, seeds, targets)
         .then(track_list => {
           track_list = orderByPopularity(track_list);
           track_list = selectTracksBySize(track_list, playlist.size)
@@ -19,6 +19,17 @@ module.exports = {
         .catch(err => reject(err));
     });
   }
+}
+
+function getHost(playlist) {
+  var host_index = 0;
+  for (var i = 0; i < playlist.users.length; i++) {
+    if (playlist.users[i].uid == playlist.host_id) {
+      host_index = i;
+      break;
+    }
+  }
+  return new User(playlist.host_id, playlist.users[i].access_token, playlist.users[i].refresh_token)  
 }
 
 function getSeeds(users) {
@@ -79,9 +90,39 @@ function getTargets(type) {
   return targets;
 }
 
-function getRecommendations(seeds, targets) {
+function getRecommendations(user, seeds, targets) {
+  const REC_CALLS = 15;
+  const ARTISTS_PER_CALL = 2;
+  const TRACKS_PER_CALL = 3;
+  const GENRES_PER_CALL = 0;
   return new Promise(function(resolve, reject) {
-
+    //Get random combinations of seeds
+    var random_seeds = []
+    for(var i = 0; i < REC_CALLS; i++) {
+      var combination = { artists: [], genres: [], tracks: [] };
+      for (var j = 0; j < ARTISTS_PER_CALL; j++) {
+        combination.artists.push(seeds.artists[Math.floor(Math.random() * seeds.artists.length)]);
+      }
+      for (var j = 0; j < TRACKS_PER_CALL; j++) {
+        combination.tracks.push(seeds.tracks[Math.floor(Math.random() * seeds.tracks.length)].id);
+      }
+      for (var j = 0; j < GENRES_PER_CALL; j++){
+        combination.genres.push(seeds.genres[Math.floor(Math.random() * seeds.genres.length)]);
+      }
+      random_seeds.push(combination);
+    }
+    // Call /recommendations in parallel
+    var calls = random_seeds.map(random_seed => {
+      return new Promise((res, rej) => {
+        spotify.getRecommendations(user, random_seed.artists, random_seed.genres, random_seed.tracks, targets)
+          .then(tracks => res(tracks))
+          .catch(err => rej(err));
+      });
+    }); 
+    Promise.all(calls)
+      // flatten tracklists and return
+      .then(results => resolve(results.reduce((p,c) => p.concat(c))))
+      .catch(error => reject(error));
   });
 }
 
