@@ -6,6 +6,7 @@ import PlaylistRoute from './routes/PlaylistRoute';
 import InviteeRoute from './routes/InviteeRoute';
 import Brand from './components/Brand';
 import Loading from './components/Loading';
+import uuid from 'uuid';
 
 class App extends Component {
   constructor(props) {
@@ -33,8 +34,8 @@ class App extends Component {
               <Brand/>
               <Switch>
                 <Route path="/home" render={() => <HomeRoute user_id={this.state.user_id} />}/>
-                <Route exact path="/create" render={(route) => <PlaylistRoute history={route.history} user_id={this.state.user_id} editing={ true } />} />
                 <Route path="/invite/:code" render={(route) => <InviteeRoute user_id={this.state.user_id} match={route.match}/>}/>
+                <Route exact path="/create" render={(route) => <PlaylistRoute pid={uuid()} history={route.history} user_id={this.state.user_id} editing={ true } />} />
                 <Route path="/playlist/:id" render={(route) => <PlaylistRoute match={route.match} user_id={this.state.user_id} editing={ false } />} />
               </Switch>
             </div>

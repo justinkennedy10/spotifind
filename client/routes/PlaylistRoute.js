@@ -8,8 +8,10 @@ class PlaylistRoute extends Component {
     super(props)
 
     this.state = {
-      playlist: {},
-      isLoading: !props.editing,
+      playlist: {
+        id: props.pid
+      },
+      isLoading: !props.editing
     }
   }
 

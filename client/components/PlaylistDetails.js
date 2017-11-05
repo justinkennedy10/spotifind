@@ -58,7 +58,7 @@ class PlaylistDetails extends Component {
   }
 
   savePlaylist() {
-    const pid = uuid();
+    const pid = this.props.playlist.id;
     let ref = this;
     const endpoint = `/api/${this.state.uid}/playlists/${pid}`;
     axios.post(endpoint, {
