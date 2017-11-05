@@ -1,8 +1,12 @@
-var request = require('request');
-var config = require('./config.json');
+const request = require('request');
+const config = require('./config.json');
 
-var client_id = config['spotifyClientId'];
-var client_secret = config['spotifySecret'];
+const client_id = config['spotifyClientId'];
+const client_secret = config['spotifySecret'];
+
+const DESCRIPTIONS = [
+  'Brought to you by Spotifind'
+]
 
 /*
   ALL function are promises, all return (error, status_code) on error
@@ -50,7 +54,7 @@ function uploadPlaylist(user, name, tracks) {
     var options = {
       url: 'https://api.spotify.com/v1/users/' + user.uid + '/playlists',
       headers: { 'Authorization': 'Bearer ' + user.access_token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name }),
+      body: JSON.stringify({ name: name, description: DESCRIPTIONS[Math.floor(Math.random() * DESCRIPTIONS.length)] }),
       dataType: 'json'
     }
 
