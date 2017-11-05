@@ -208,3 +208,7 @@ a.list-group-item:nth-of-type(2n) {
 .left-panel {
     margin-top: 24px;
 }
+
+.verification-status {
+    color: lightgrey;
+}
