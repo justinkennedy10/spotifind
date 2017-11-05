@@ -23,7 +23,8 @@ module.exports = {
   checkUserHostsPlaylist,
   saveSpotifyId,
   getAccessAndRefreshTokens,
-  getCollaboratorsByPlaylist
+  getCollaboratorsByPlaylist,
+  addUserToInviteCode
 };
 
 function saveUser(user) {
@@ -137,7 +138,7 @@ function addInviteCode(pid, inviteCode, phone) {
 
 function getInviteCode(inviteCode) {
   return new Promise(function(resolve, reject) {
-    db.query('SELECT spotify_id, pid, FROM InviteCodes WHERE invite_code = ?', inviteCode, function(err, res) {
+    db.query('SELECT spotify_id, pid FROM InviteCodes WHERE invite_code = ?', inviteCode, function(err, res) {
       if (err) reject(err);
       else resolve(res);
     });
@@ -149,7 +150,16 @@ function getCollaboratorsByPlaylist(pid) {
     db.query('SELECT phone FROM InviteCodes WHERE pid = ?', pid, function (err, res) {
       if(err) reject(err);
       else resolve(res);
-    })
+    });
+  });
+}
+
+function addUserToInviteCode(inviteCode, user_id, playlist_id) {
+  return new Promise(function(resolve, reject) {
+    db.query('UPDATE InviteCodes SET spotify_id = ? WHERE invite_code = ?', [user_id, inviteCode], function(err, res) {
+      if (err) reject(err);
+      else resolve(playlist_id);
+    });
   });
 }
 

@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
 import SpotifyLoginButton from '../components/SpotifyLoginButton';
+import axios from 'axios';
 
 class InviteeRoute extends Component {
 
-  componentWillMount() {
+  constructor(props) {
+    super(props)
+    this.state = {
+      status: "pending"
+    }
+  }
 
+  componentWillMount() {
+    var invite_code = this.props.match.params.code;
+    axios.post('/api/invite/validate', {
+      invite_code: invite_code
+    }).then((res) => {
+      console.log(res);
+      this.setState({status: res.data.status})
+    }).catch((err) => {
+      this.setState({status: err.response.data.status})
+    });
   }
 
 
   render() {
     return (
-      <div class="container">
-        <div class="invitee-description">
-        You were invited by Andrew Bass to create a playlist based on your
-        shared musical tastes.  Please login with Spotify to continue.
-        </div>
-      </div>
+      <div>{this.state.status}</div>
     );
   }
 }

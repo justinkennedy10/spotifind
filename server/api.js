@@ -2,7 +2,9 @@ const db = require('./db/controller');
 const Playlist = require('./Playlist');
 const { populateGenerationData } = require('./populater');
 const { generatePlaylist } = require('./generator');
-const { inviteToPlaylist, getInviteCode } = require('./inviter');
+const {
+  inviteToPlaylist,
+} = require('./inviter');
 
 module.exports = function(app, authenticate) {
 
@@ -35,8 +37,8 @@ module.exports = function(app, authenticate) {
   })
 
   app.post('/api/invite', authenticate, function(req, res) {
-    console.log(req.body);
     playlistId = req.body.playlistId;
+    console.log(playlistId);
     inviteeList = req.body.inviteeList;
     uid = req.body.uid;
     console.log(req.body.inviteeList);
@@ -74,34 +76,53 @@ module.exports = function(app, authenticate) {
       .catch(error => res.json(error));
   });
 
-  /*function validateInviteCode(code, uid) {
-    return new Promise(function(resolve, reject) {
-      getInviteCode(uid).then(function(res) {
-        if (!res[0]) {
-          // First code use!
-        }
-        else if (uid == res[0]) {
-          // user matches and has already done this
-        } else {
-          reject('invalid_code');
-        }
-
-      }).catch(function (err) {
-    }
-
+  app.post('/api/invite/validate', authenticate, function(req,res) {
+    var invite_code = req.body.invite_code;
+    console.log("Invite code" + invite_code);
+    var user_id = req.user.id;
+    validateInviteCode(invite_code, user_id).then((response) => {
+      res.send({status: "success"});
+    }).catch((err) => {
+      console.log(err);
+      if (err === 'invalid_code') {
+        res.status(401).send({status: 'invalid_code'});
+      } else if (err === 'already_used_by_you') {
+        res.status(200).send({status: 'already_used_by_you'});
+      } else {
+        res.status(500).send({status: err});
+      }
     });
+  });
 
-
-    // Query for the invite code
-    // if not used
-      // add uid to row
-      // add user to user table
-      // add user to playlist table
-      // send them to selection
-    // else
-      // if uid matchs the one in table
-        // send them to selection
-      // else
-        // invalid code
-  }*/
+  function validateInviteCode(code, uid) {
+    console.log("In validate invite code");
+    return new Promise(function(resolve, reject) {
+      db.getInviteCode(code).then((res) => {
+          console.log(res);
+          if (res.length === 0) {
+            reject('invalid_code');
+          } else if (!res[0].spotify_id) {
+            //ADD UID TO ROW,
+            db.addUserToInviteCode(code, uid, res[0].pid)
+              .then(() => db.addUserToPlaylist(uid, res[0].pid, 'authorized_contributor'))
+            //SEND THEM TO SELECTION
+            .then(() => resolve());
+          // ELSE
+          } else {
+            // IF UID MATCHES THE ONE IN TABLE
+            if (uid == res[0].spotify_id) {
+              // SEND THEM TO SELECTION
+              reject('already_used_by_you');
+            // ELSE INVALID CODE
+            } else {
+              console.log("Here");
+              reject('invalid_code');
+            }
+          }
+      }).catch(function (err) {
+        console.log("Error");
+        reject(err);
+      });
+    });
+  }
 }
