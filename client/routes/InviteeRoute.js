@@ -26,13 +26,7 @@ class InviteeRoute extends Component {
 
 
   render() {
-    if (this.state.status == 'success') {
       return <Redirect to='/home'/>;
-    } else {
-      return (
-        <div class="verification-status">{this.state.status}</div>
-      );
-    }
   }
 }
 
