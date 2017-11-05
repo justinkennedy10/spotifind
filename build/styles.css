@@ -43,7 +43,6 @@ body {
 }
 
 .new-playlist-button {
-    margin-top: 24px;
     margin-right: 12px;
     background-color: #1db954;
     color: white;
@@ -163,5 +162,36 @@ a.list-group-item:nth-of-type(2n) {
 }
 
 .new-playlist .name {
-    background-color: blue;
+    background-color: darkgrey;
+}
+
+.new-playlist .dropdown-row {
+    margin-top: 12px;
+}
+
+.new-playlist hr {
+    border-color: #222323;
+    margin-bottom: 0px;
+}
+
+.new-playlist .modal-header {
+    border-bottom: none;
+}
+
+.dropdown-label {
+    display: inline-block;
+    padding-right: 12px;
+}
+
+.new-playlist .modal-body {
+    padding-top: 0px;
+}
+
+.modal-dialog {
+    margin-top: 60px;
+}
+
+.new-playlist select {
+    background-color: darkgrey;
+    font-size:16px;
 }
