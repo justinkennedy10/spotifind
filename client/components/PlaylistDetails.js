@@ -17,11 +17,13 @@ class PlaylistDetails extends Component {
           id: props.history.location.state.id,
           name: props.history.location.state.name,
           type: props.history.location.state.type
-        }
+        },
+        songs: props.songs || []
       }
     } else {
       this.state = {
-        playlist: props.playlist
+        playlist: props.playlist,
+        songs: props.songs || []
       }
     }
   }
@@ -63,6 +65,14 @@ class PlaylistDetails extends Component {
     this.setState({
       loading: true
     })
+    let ref = this;
+    axios.post('/api/playlist/' + this.state.playlist.id + '/generate')
+      .then(function (res) {
+        ref.setState({
+          loading: false,
+          songs: res.data
+        })
+      })
   }
 
   render() {
@@ -93,7 +103,7 @@ class PlaylistDetails extends Component {
           <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
             GENERATE
           </div>
-          <SongList songs={[]}/>
+          <SongList songs={this.state.songs}/>
         </div>
       )
       collabs = <CollaboratorsList uid={this.props.uid} pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ this.state.collaborators } />
