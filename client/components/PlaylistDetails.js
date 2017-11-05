@@ -129,7 +129,7 @@ class PlaylistDetails extends Component {
     }
     let collabs;
     if(!this.props.editing) {
-      collabs = <CollaboratorsList pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ [] } />
+      collabs = <CollaboratorsList uid={this.props.uid} pid={this.state.playlist.id} editing={ this.props.editing } collaborators={ [] } />
     } else {
       collabs = (<h3>Save settings to add collaborators</h3>)
     }

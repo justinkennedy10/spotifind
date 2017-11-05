@@ -19,6 +19,7 @@ class Collaborator extends Component {
   invite() {
     const ref = this;
     axios.post('/api/invite', {
+      uid: this.props.uid,
       playlistId: ref.props.pid,
       inviteeList: [ ref.state.phone ]
     }).then(function(res) {

@@ -30,9 +30,10 @@ module.exports = function(app, authenticate) {
     console.log(req.body);
     playlistId = req.body.playlistId;
     inviteeList = req.body.inviteeList;
+    uid = req.body.uid;
     console.log(req.body.inviteeList);
 
-    inviteToPlaylist(playlistId, inviteeList).then(function() {
+    inviteToPlaylist(uid, playlistId, inviteeList).then(function() {
       res.send("Success");
     }).catch(function(err) {
       res.json(err);
