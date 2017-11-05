@@ -72,13 +72,20 @@ class PlaylistDetails extends Component {
     if(this.state.loading) {
       leftPanel = <Loading />
     } else {
-      let playlistSrc = `https://open.spotify.com/embed/user/${this.state.uid}/playlist/${this.state.spotify_pid}`;
-      leftPanel = (
-        <div>
+      var left = null;
+      if (this.state.spotify_pid) {
+        let playlistSrc = `https://open.spotify.com/embed/user/${this.state.uid}/playlist/${this.state.spotify_pid}`;
+        left = (<iframe className="embed-responsive-item" src={playlistSrc} width="100%" height="500" frameBorder="0" allowTransparency="true"></iframe>);
+      } else {
+        left = (
           <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
             GENERATE
-          </div>
-            <iframe className="embed-responsive-item" src={playlistSrc} width="100%" height="380" frameBorder="0" allowTransparency="true"></iframe>
+          </div>);
+
+      }
+      leftPanel = (
+        <div class="left-panel">
+          {left}
         </div>
       )
     }

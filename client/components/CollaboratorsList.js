@@ -32,7 +32,7 @@ class CollaboratorsList extends Component {
             return {
               id: uuid(),
               phone: c.phone,
-              spotify_id: c.spotify_id
+              spotifyId: c.spotify_id
             }
           })
         })
@@ -44,7 +44,7 @@ class CollaboratorsList extends Component {
       <div>
         <h3 className="details-head">Collaborators</h3>
         { this.state.collaborators.map(collab => (
-          <Collaborator uid={this.props.uid} pid={this.props.pid} newCollab={collab.newCollab} key={collab.id} name={collab.spotify_id || collab.phone} image="http://placehold.it/50x50" />
+          <Collaborator uid={this.props.uid} pid={this.props.pid} newCollab={collab.newCollab} key={collab.id} phone={collab.phone} spotifyId={collab.spotifyId} image="http://placehold.it/50x50" />
         )) }
         <div className="btn new-playlist-button text-center" onClick={this.addCollaborator.bind(this)}>
           <span className="glyphicon glyphicon-plus"></span>&nbsp; ADD COLLABORATORS
