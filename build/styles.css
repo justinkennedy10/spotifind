@@ -212,3 +212,8 @@ a.list-group-item:nth-of-type(2n) {
 .verification-status {
     color: lightgrey;
 }
+
+.generate-info {
+    color: rgb(152, 147, 147);
+    margin-bottom: 12px;
+}

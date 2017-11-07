@@ -78,10 +78,12 @@ class PlaylistDetails extends Component {
         left = (<iframe className="embed-responsive-item" src={playlistSrc} width="100%" height="500" frameBorder="0" allowTransparency="true"></iframe>);
       } else {
         left = (
-          <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
-            GENERATE
+          <div>
+            <div className="generate-info">Add collaborators, wait for them to accept the invite, then generate a playlist based on your listening habits.</div>
+            <div className="btn new-playlist-button text-center" onClick={this.generatePlaylist.bind(this)}>
+              GENERATE
+            </div>
           </div>);
-
       }
       leftPanel = (
         <div class="left-panel">
