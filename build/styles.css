@@ -217,3 +217,20 @@ a.list-group-item:nth-of-type(2n) {
     color: rgb(152, 147, 147);
     margin-bottom: 12px;
 }
+
+.error {
+    margin-top: 24px;
+    color: rgb(205, 205, 205);
+}
+
+.error .code {
+    font-size: 64px;
+}
+
+.error .message {
+    font-size: 32px;
+}
+
+.error .song {
+    margin-top: 24px;
+}
