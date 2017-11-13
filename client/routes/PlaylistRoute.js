@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PlaylistDetails from '../components/PlaylistDetails';
+import PlaylistDetails from '../components/playlist/PlaylistDetails';
 import axios from 'axios';
 
 class PlaylistRoute extends Component {

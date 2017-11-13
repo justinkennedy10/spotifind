@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import CollaboratorsList from './CollaboratorsList';
+import CollaboratorsList from '../collaborators/CollaboratorsList';
 import SongList from './SongList';
 import Details from './Details';
 import PlaylistHeader from './PlaylistHeader';
-import Loading from './Loading';
+import Loading from '../assets/Loading';
 import axios from 'axios';
 import uuid from 'uuid';
 

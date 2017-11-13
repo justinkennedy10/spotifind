@@ -4,8 +4,8 @@ import axios from 'axios';
 import HomeRoute from './routes/HomeRoute.js';
 import PlaylistRoute from './routes/PlaylistRoute';
 import InviteeRoute from './routes/InviteeRoute';
-import Brand from './components/Brand';
-import Loading from './components/Loading';
+import Brand from './components/assets/Brand';
+import Loading from './components/assets/Loading';
 import NotFoundError from './components/errors/NotFoundError';
 import uuid from 'uuid';
 

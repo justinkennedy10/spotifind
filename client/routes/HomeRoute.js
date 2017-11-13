@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PlaylistList from '../components/PlaylistList';
-import NewPlaylistButton from '../components/NewPlaylistButton';
-import CreatePlaylistModal from '../components/CreatePlaylistModal';
+import PlaylistList from '../components/playlist/PlaylistList';
+import NewPlaylistButton from '../components/playlist/NewPlaylistButton';
+import CreatePlaylistModal from '../components/playlist/CreatePlaylistModal';
 
 class PlaylistRoute extends Component {
   render() {

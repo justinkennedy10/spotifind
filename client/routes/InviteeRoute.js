@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SpotifyLoginButton from '../components/SpotifyLoginButton';
+import SpotifyLoginButton from '../components/assets/SpotifyLoginButton';
 import { Redirect } from 'react-router'
 import axios from 'axios';
 

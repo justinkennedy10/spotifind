@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PlaylistItem from './PlaylistItem';
 import NoPlaylists from './NoPlaylists';
-import Loading from './Loading';
+import Loading from '../assets/Loading';
 
 class PlaylistList extends Component {
   constructor(props) {
