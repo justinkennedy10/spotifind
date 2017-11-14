@@ -5,6 +5,7 @@
 
 const mysql = require('mysql');
 const db = require('./connection');
+const db2 = require('./connection2');
 const Playlist = require('../Playlist');
 
 module.exports = {
